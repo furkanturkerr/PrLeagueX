@@ -1,0 +1,12 @@
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/bin/Debug/net8.0/PrLeagueX.DtoLayer.deps.json
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/bin/Debug/net8.0/PrLeagueX.DtoLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/bin/Debug/net8.0/PrLeagueX.DtoLayer.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.AssemblyInfoInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.AssemblyInfo.cs
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.csproj.CoreCompileInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.sourcelink.json
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/refint/PrLeagueX.DtoLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/PrLeagueX.DtoLayer.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/Debug/net8.0/ref/PrLeagueX.DtoLayer.dll

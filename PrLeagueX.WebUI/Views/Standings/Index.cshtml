@@ -1,0 +1,508 @@
+@model List<PrLeagueX.DtoLayer.StandingDtos.ResultStandingDto>
+
+@{
+    Layout = null;
+    var seasons = ViewBag.Seasons as IEnumerable<dynamic>;
+    var selectedSeasonId = ViewBag.SelectedSeasonId;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Puan Durumu — PrLeagueX</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+:root{
+    --bg:#080d18;--bg2:#0c1220;--card:#111827;--card2:#16202f;
+    --green:#00e676;--blue:#2979ff;--live:#ff1744;--gold:#ffd600;
+    --t1:#eef2ff;--t2:#7b96c4;--t3:#3d5478;--border:#1a2640;
+    --r1:8px;--r2:12px;--r3:16px;
+    --tr:all .22s cubic-bezier(.4,0,.2,1);
+    --fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:var(--fb);
+    background:var(--bg);
+    color:var(--t1);
+    min-height:100vh;
+    background-image:
+        radial-gradient(ellipse at 15% 0%,rgba(41,121,255,.08) 0%,transparent 55%),
+        radial-gradient(ellipse at 85% 0%,rgba(0,230,118,.05) 0%,transparent 50%);
+}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+.pg-head{
+    background:linear-gradient(135deg,var(--bg2),var(--card));
+    border-bottom:1px solid var(--border);
+    padding:34px 0 28px;
+    position:relative;
+    overflow:hidden;
+}
+.pg-head::before{
+    content:'';
+    position:absolute;
+    top:-40%;
+    right:-5%;
+    width:380px;
+    height:380px;
+    background:radial-gradient(circle,rgba(0,230,118,.06) 0%,transparent 70%);
+    pointer-events:none;
+}
+.pg-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,214,0,.09);
+    border:1px solid rgba(255,214,0,.22);
+    border-radius:20px;
+    padding:4px 12px;
+    font-family:var(--fd);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+.pg-title{
+    font-family:var(--fd);
+    font-size:clamp(28px,5vw,44px);
+    font-weight:900;
+    letter-spacing:.5px;
+    line-height:1;
+}
+.pg-sub{font-size:13px;color:var(--t2);margin-top:8px}
+
+.season-card{
+    background:rgba(17,24,39,.78);
+    border:1px solid var(--border);
+    border-radius:var(--r3);
+    padding:16px;
+    box-shadow:0 18px 35px rgba(0,0,0,.18);
+}
+.season-label{
+    font-family:var(--fd);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--t3);
+    margin-bottom:8px;
+}
+.season-select{
+    background:#0b1220;
+    border:1px solid var(--border);
+    color:var(--t1);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:13px;
+}
+.season-select:focus{
+    background:#0b1220;
+    border-color:rgba(0,230,118,.45);
+    color:var(--t1);
+    box-shadow:0 0 0 .2rem rgba(0,230,118,.08);
+}
+.legend{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px}
+.leg-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:var(--t2);
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:6px 10px;
+    border-radius:8px;
+}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+.tbl-wrap{padding:28px 0 56px}
+.top-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:24px;
+}
+.ts-card{
+    background:linear-gradient(145deg,var(--card),#0d1524);
+    border:1px solid var(--border);
+    border-radius:var(--r2);
+    padding:18px;
+    min-height:104px;
+    box-shadow:0 14px 30px rgba(0,0,0,.18);
+}
+.ts-label{
+    font-family:var(--fd);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--t3);
+    margin-bottom:8px;
+}
+.ts-val{
+    font-family:var(--fd);
+    font-size:28px;
+    font-weight:900;
+    line-height:1;
+}
+.ts-team{font-size:12px;color:var(--t2);margin-top:6px}
+
+.table-shell{
+    overflow-x:auto;
+    border-radius:var(--r3);
+    border:1px solid var(--border);
+    background:rgba(17,24,39,.48);
+    padding:8px;
+}
+.std-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0 5px;
+    min-width:620px;
+}
+.std-table thead th{
+    font-family:var(--fd);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--t3);
+    padding:7px 10px;
+    text-align:center;
+    border:none;
+}
+.std-table thead th.team-col{text-align:left;padding-left:14px}
+.std-row{background:var(--card);transition:var(--tr)}
+.std-row:hover{background:var(--card2);transform:translateX(3px)}
+.std-row td{padding:12px 10px;text-align:center;border:none;vertical-align:middle}
+.std-row td:first-child{border-radius:var(--r1) 0 0 var(--r1);padding-left:0}
+.std-row td:last-child{border-radius:0 var(--r1) var(--r1) 0}
+
+.pos-strip{width:4px;height:44px;border-radius:var(--r1) 0 0 var(--r1)}
+.pos-num{
+    font-family:var(--fd);
+    font-size:16px;
+    font-weight:800;
+    color:var(--t2);
+    width:38px;
+    display:inline-block;
+}
+.pos-num.top1{color:var(--gold)}
+.pos-num.top4{color:var(--green)}
+.pos-num.euro{color:var(--blue)}
+.pos-num.rel{color:var(--live)}
+
+.team-cell{display:flex;align-items:center;gap:10px;text-align:left;min-width:170px}
+.t-logo{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#1c2d42;
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--fd);
+    font-size:9px;
+    font-weight:800;
+    color:var(--t2);
+    overflow:hidden;
+    flex-shrink:0;
+}
+.t-logo img{width:100%;height:100%;object-fit:contain;padding:3px}
+.t-name{font-family:var(--fd);font-size:15px;font-weight:700}
+.t-name .t-short{display:none}
+
+.s-mp,.s-gf,.s-ga{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t1)}
+.s-w{font-family:var(--fd);font-size:14px;font-weight:800;color:var(--green)}
+.s-d{font-family:var(--fd);font-size:14px;font-weight:800;color:var(--t2)}
+.s-l{font-family:var(--fd);font-size:14px;font-weight:800;color:var(--live)}
+.s-gd{font-family:var(--fd);font-size:14px;font-weight:800}
+.s-gd.pos{color:var(--green)}
+.s-gd.neg{color:var(--live)}
+.s-gd.zero{color:var(--t3)}
+.s-pts{font-family:var(--fd);font-size:19px;font-weight:900;color:var(--t1)}
+.pts-top{color:var(--gold)!important}
+
+.cl-champ{background:rgba(255,214,0,.8)}
+.cl-ucl{background:var(--green)}
+.cl-uel{background:var(--blue)}
+.cl-rel{background:var(--live)}
+.cl-none{background:transparent}
+
+.empty-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--r3);
+    padding:32px;
+    text-align:center;
+    color:var(--t2);
+}
+.ft{
+    background:var(--bg2);
+    border-top:1px solid var(--border);
+    padding:28px 0;
+    color:var(--t3);
+    font-size:12px;
+}
+.ft-brand{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--t1)}
+.ft-brand span{color:var(--green)}
+
+@@media(max-width:900px){
+    .top-stats{grid-template-columns:repeat(2,1fr)}
+    .t-name .t-full{display:none}
+    .t-name .t-short{display:inline}
+}
+@@media(max-width:600px){
+    .hide-sm{display:none!important}
+    .top-stats{grid-template-columns:repeat(2,1fr);gap:8px}
+    .ts-val{font-size:23px}
+    .pos-num{width:28px;font-size:14px}
+    .team-cell{min-width:125px;gap:7px}
+    .t-logo{width:24px;height:24px}
+}
+</style>
+</head>
+
+<body>
+
+@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+<section class="pg-head">
+    <div class="wrap">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <div class="pg-badge">
+                    <i class="bi bi-trophy-fill"></i>
+                    Premier League
+                </div>
+
+                <h1 class="pg-title">
+                    Puan <span style="color:var(--green)">Durumu</span>
+                </h1>
+
+                <p class="pg-sub">
+                    PrLeagueX canlı lig sıralaması · Sezon seçimine göre dinamik hesaplanır
+                </p>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="season-card">
+                    <form method="get" asp-controller="Standings" asp-action="Index">
+                        <div class="season-label">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            Sezon Seçimi
+                        </div>
+
+                        <select name="seasonId" class="form-select season-select" onchange="this.form.submit()">
+                            @if (seasons != null)
+                            {
+                                foreach (var season in seasons)
+                                {
+                                    <option value="@season.SeasonId" selected="@(season.SeasonId == selectedSeasonId)">
+                                        @season.SeasonName @(season.IsActive ? " · Aktif" : "")
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </form>
+
+                    <div class="legend">
+                        <div class="leg-item">
+                            <div class="leg-dot" style="background:rgba(255,214,0,.8)"></div>
+                            Lider
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-dot" style="background:var(--green)"></div>
+                            Şampiyonlar Ligi
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-dot" style="background:var(--blue)"></div>
+                            Avrupa Ligi
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-dot" style="background:var(--live)"></div>
+                            Küme Düşme
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+<div class="wrap">
+<div class="tbl-wrap">
+
+@{
+    var leader = Model?.OrderBy(x => x.Position).FirstOrDefault();
+    var topScoringTeam = Model?.OrderByDescending(x => x.GoalsFor).FirstOrDefault();
+    var bestDefenceTeam = Model?.OrderBy(x => x.GoalsAgainst).FirstOrDefault();
+    var totalMatches = Model?.Sum(x => x.Played) / 2 ?? 0;
+}
+
+<div class="top-stats">
+    <div class="ts-card">
+        <div class="ts-label">Lider Takım</div>
+        <div class="ts-val" style="color:var(--gold)">
+            @(leader?.ShortName ?? "-")
+        </div>
+        <div class="ts-team">
+            @(leader != null ? $"{leader.TeamName} · {leader.Points} puan" : "Veri yok")
+        </div>
+    </div>
+
+    <div class="ts-card">
+        <div class="ts-label">En Çok Gol</div>
+        <div class="ts-val" style="color:var(--green)">
+            @(topScoringTeam?.GoalsFor ?? 0)
+        </div>
+        <div class="ts-team">
+            @(topScoringTeam?.TeamName ?? "Veri yok")
+        </div>
+    </div>
+
+    <div class="ts-card">
+        <div class="ts-label">En Az Yenilen</div>
+        <div class="ts-val" style="color:var(--blue)">
+            @(bestDefenceTeam?.GoalsAgainst ?? 0)
+        </div>
+        <div class="ts-team">
+            @(bestDefenceTeam?.TeamName ?? "Veri yok")
+        </div>
+    </div>
+
+    <div class="ts-card">
+        <div class="ts-label">Oynanan Maç</div>
+        <div class="ts-val">@totalMatches</div>
+        <div class="ts-team">Tamamlanan maç sayısı</div>
+    </div>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="empty-box">
+        <i class="bi bi-info-circle me-1"></i>
+        Bu sezon için henüz puan durumu verisi bulunmuyor.
+    </div>
+}
+else
+{
+    <div class="table-shell">
+        <table class="std-table">
+            <thead>
+            <tr>
+                <th style="width:4px;padding:0"></th>
+                <th style="width:44px">#</th>
+                <th class="team-col">Takım</th>
+                <th>O</th>
+                <th>G</th>
+                <th>B</th>
+                <th>M</th>
+                <th class="hide-sm">AG</th>
+                <th class="hide-sm">YG</th>
+                <th>AV</th>
+                <th>P</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var item in Model.OrderBy(x => x.Position))
+            {
+                var gdClass = item.GoalDifference > 0 ? "pos" : item.GoalDifference < 0 ? "neg" : "zero";
+                var gdText = item.GoalDifference > 0 ? "+" + item.GoalDifference : item.GoalDifference.ToString();
+
+                var zoneClass = item.Zone switch
+                {
+                    "champ" => "cl-champ",
+                    "ucl" => "cl-ucl",
+                    "uel" => "cl-uel",
+                    "rel" => "cl-rel",
+                    _ => "cl-none"
+                };
+
+                var posClass = item.Zone switch
+                {
+                    "champ" => "top1",
+                    "ucl" => "top4",
+                    "uel" => "euro",
+                    "rel" => "rel",
+                    _ => ""
+                };
+
+                <tr class="std-row">
+                    <td style="padding:0;width:4px">
+                        <div class="pos-strip @zoneClass"></div>
+                    </td>
+
+                    <td>
+                        <span class="pos-num @posClass">@item.Position</span>
+                    </td>
+
+                    <td>
+                        <div class="team-cell">
+                            <div class="t-logo">
+                                @if (!string.IsNullOrWhiteSpace(item.LogoUrl))
+                                {
+                                    <img src="@item.LogoUrl" alt="@item.ShortName"/>
+                                }
+                                else
+                                {
+                                    @item.ShortName
+                                }
+                            </div>
+
+                            <div class="t-name">
+                                <span class="t-full">@item.TeamName</span>
+                                <span class="t-short">@item.ShortName</span>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="s-mp">@item.Played</td>
+                    <td class="s-w">@item.Won</td>
+                    <td class="s-d">@item.Drawn</td>
+                    <td class="s-l">@item.Lost</td>
+                    <td class="s-gf hide-sm">@item.GoalsFor</td>
+                    <td class="s-ga hide-sm">@item.GoalsAgainst</td>
+                    <td class="s-gd @gdClass">@gdText</td>
+                    <td class="s-pts @(item.Position == 1 ? "pts-top" : "")">@item.Points</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+
+</div>
+</div>
+</main>
+
+<footer class="ft">
+    <div class="wrap d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+            <div class="ft-brand">PrLeague<span>X</span></div>
+            <div>Premier League yönetim sistemi demo projesi.</div>
+        </div>
+
+        <div>
+            © 2026 PrLeagueX · Veriler demo amaçlıdır.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

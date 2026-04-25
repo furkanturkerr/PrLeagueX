@@ -6,4 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PrLeagueX.WebAPI\PrLeagueX.WebAPI.csproj" />
+    </ItemGroup>
+
 </Project>

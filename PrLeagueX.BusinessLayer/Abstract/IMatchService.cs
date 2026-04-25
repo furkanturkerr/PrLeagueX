@@ -1,6 +1,8 @@
+using PrLeagueX.DtoLayer.MatchDtos;
+
 namespace PrLeagueX.BusinessLayer.Abstract;
 
-public class IMatchService
+public interface IMatchService : IGenericService<ResultMatchDto, CreateMatchDto, UpdateMatchDto>
 {
     
 }

@@ -12,3 +12,4 @@
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.pdb
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.genruntimeconfig.cache
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/ref/PrLeagueX.Entity.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.sourcelink.json

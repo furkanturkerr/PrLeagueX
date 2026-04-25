@@ -4,6 +4,77 @@
     "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebAPI/PrLeagueX.WebAPI.csproj": {}
   },
   "projects": {
+    "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/PrLeagueX.BusinessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/PrLeagueX.BusinessLayer.csproj",
+        "projectName": "PrLeagueX.BusinessLayer",
+        "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/PrLeagueX.BusinessLayer.csproj",
+        "packagesPath": "/Users/furkanturker/.nuget/packages/",
+        "outputPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/furkanturker/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/PrLeagueX.DataAccessLayer.csproj": {
+                "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/PrLeagueX.DataAccessLayer.csproj"
+              },
+              "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/PrLeagueX.DtoLayer.csproj": {
+                "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/PrLeagueX.DtoLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.416/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/PrLeagueX.DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -30,6 +101,64 @@
                 "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/PrLeagueX.Entity.csproj"
               }
             }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.416/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/PrLeagueX.DtoLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/PrLeagueX.DtoLayer.csproj",
+        "projectName": "PrLeagueX.DtoLayer",
+        "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/PrLeagueX.DtoLayer.csproj",
+        "packagesPath": "/Users/furkanturker/.nuget/packages/",
+        "outputPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DtoLayer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/furkanturker/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -168,6 +297,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/PrLeagueX.BusinessLayer.csproj": {
+                "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.BusinessLayer/PrLeagueX.BusinessLayer.csproj"
+              },
               "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/PrLeagueX.DataAccessLayer.csproj": {
                 "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/PrLeagueX.DataAccessLayer.csproj"
               }
@@ -204,6 +336,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.26, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.23, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

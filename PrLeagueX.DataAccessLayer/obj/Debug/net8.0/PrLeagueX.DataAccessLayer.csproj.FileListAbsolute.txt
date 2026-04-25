@@ -13,3 +13,4 @@
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/refint/PrLeagueX.DataAccessLayer.dll
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.pdb
 /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/ref/PrLeagueX.DataAccessLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.sourcelink.json

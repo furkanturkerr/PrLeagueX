@@ -10,4 +10,13 @@
       <Folder Include="ValidationRules\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PrLeagueX.DataAccessLayer\PrLeagueX.DataAccessLayer.csproj" />
+      <ProjectReference Include="..\PrLeagueX.DtoLayer\PrLeagueX.DtoLayer.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+    </ItemGroup>
+
 </Project>
