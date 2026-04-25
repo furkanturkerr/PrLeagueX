@@ -26,12 +26,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Views/Fixture/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRml4dHVyZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Views/Shared/Components/_DefaultFooterComponentPartial/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvX0RlZmF1bHRGb290ZXJDb21wb25lbnRQYXJ0aWFsL0RlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Views/Shared/Components/_DefaultNavbarComponentPartial/Default.cshtml]

@@ -21,4 +21,13 @@ public class EfMatchDal : GenericRepository<Match>, IMatchDal
             .Where(x => x.SeasonId == seasonId && x.Status == MatchStatus.Finished)
             .ToListAsync();
     }
+    
+    public async Task<List<Match>> GetFixturesBySeasonAndWeekAsync(int seasonId, int week)
+    {
+        return await _context.Matches
+            .Include(x => x.HomeTeam)
+            .Include(x => x.AwayTeam)
+            .Where(x => x.SeasonId == seasonId && x.Week == week)
+            .ToListAsync();
+    }
 }

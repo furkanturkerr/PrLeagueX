@@ -22,7 +22,7 @@ builder.Services.AddScoped<IMatchService, MatchManager>();
 builder.Services.AddScoped<IMatchDal, EfMatchDal>();
 builder.Services.AddScoped<ISeasonDal, EfSeasonDal>();
 builder.Services.AddScoped<ISeasonService, SeasonManager>();
-
+builder.Services.AddScoped<IFixtureService, FixtureManager>();
 
 var app = builder.Build();
 

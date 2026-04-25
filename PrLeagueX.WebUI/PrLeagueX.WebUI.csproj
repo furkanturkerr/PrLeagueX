@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\" />
+      <ProjectReference Include="..\PrLeagueX.WebAPI\PrLeagueX.WebAPI.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PrLeagueX.WebAPI\PrLeagueX.WebAPI.csproj" />
+      <Folder Include="Pages\" />
     </ItemGroup>
 
 </Project>

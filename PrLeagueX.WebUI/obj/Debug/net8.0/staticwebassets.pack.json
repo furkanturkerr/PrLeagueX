@@ -21,6 +21,18 @@
       "PackagePath": "staticwebassets/Theme/standings.html"
     },
     {
+      "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/Fixture.css",
+      "PackagePath": "staticwebassets/css/Fixture.css"
+    },
+    {
+      "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/Standings.css",
+      "PackagePath": "staticwebassets/css/Standings.css"
+    },
+    {
+      "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/default-navbar.css",
+      "PackagePath": "staticwebassets/css/default-navbar.css"
+    },
+    {
       "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
