@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.Entity", "PrLeagueX.Entity\PrLeagueX.Entity.csproj", "{6293D7D7-9247-4007-9122-E4A3BE893DD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.DataAccessLayer", "PrLeagueX.DataAccessLayer\PrLeagueX.DataAccessLayer.csproj", "{0D9F8A7C-ED07-44F9-B10E-453CD1D4EDE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.BusinessLayer", "PrLeagueX.BusinessLayer\PrLeagueX.BusinessLayer.csproj", "{C6269D0E-41F7-41BF-AEA0-BF846BD264EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.DtoLayer", "PrLeagueX.DtoLayer\PrLeagueX.DtoLayer.csproj", "{0601A074-58E8-4303-B0A1-A9EBC4BC3832}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.WebAPI", "PrLeagueX.WebAPI\PrLeagueX.WebAPI.csproj", "{ACB22ACE-B776-4BD1-BCA0-5C1A8286BC5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrLeagueX.WebUI", "PrLeagueX.WebUI\PrLeagueX.WebUI.csproj", "{25179C9F-713C-49F8-9777-679F3D83CAA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6293D7D7-9247-4007-9122-E4A3BE893DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6293D7D7-9247-4007-9122-E4A3BE893DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6293D7D7-9247-4007-9122-E4A3BE893DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6293D7D7-9247-4007-9122-E4A3BE893DD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9F8A7C-ED07-44F9-B10E-453CD1D4EDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9F8A7C-ED07-44F9-B10E-453CD1D4EDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9F8A7C-ED07-44F9-B10E-453CD1D4EDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9F8A7C-ED07-44F9-B10E-453CD1D4EDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6269D0E-41F7-41BF-AEA0-BF846BD264EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6269D0E-41F7-41BF-AEA0-BF846BD264EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6269D0E-41F7-41BF-AEA0-BF846BD264EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6269D0E-41F7-41BF-AEA0-BF846BD264EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0601A074-58E8-4303-B0A1-A9EBC4BC3832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0601A074-58E8-4303-B0A1-A9EBC4BC3832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0601A074-58E8-4303-B0A1-A9EBC4BC3832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0601A074-58E8-4303-B0A1-A9EBC4BC3832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB22ACE-B776-4BD1-BCA0-5C1A8286BC5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB22ACE-B776-4BD1-BCA0-5C1A8286BC5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB22ACE-B776-4BD1-BCA0-5C1A8286BC5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB22ACE-B776-4BD1-BCA0-5C1A8286BC5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25179C9F-713C-49F8-9777-679F3D83CAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25179C9F-713C-49F8-9777-679F3D83CAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25179C9F-713C-49F8-9777-679F3D83CAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25179C9F-713C-49F8-9777-679F3D83CAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

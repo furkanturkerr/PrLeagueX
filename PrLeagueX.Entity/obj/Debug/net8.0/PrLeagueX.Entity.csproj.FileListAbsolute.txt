@@ -1,0 +1,14 @@
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/bin/Debug/net8.0/PrLeagueX.Entity.deps.json
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/bin/Debug/net8.0/PrLeagueX.Entity.runtimeconfig.json
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/bin/Debug/net8.0/PrLeagueX.Entity.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/bin/Debug/net8.0/PrLeagueX.Entity.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.csproj.AssemblyReference.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.GeneratedMSBuildEditorConfig.editorconfig
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.AssemblyInfoInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.AssemblyInfo.cs
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.csproj.CoreCompileInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/refint/PrLeagueX.Entity.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/PrLeagueX.Entity.genruntimeconfig.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/obj/Debug/net8.0/ref/PrLeagueX.Entity.dll

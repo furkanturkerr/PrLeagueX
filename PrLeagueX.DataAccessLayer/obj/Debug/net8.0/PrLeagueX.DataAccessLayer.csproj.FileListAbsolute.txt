@@ -1,0 +1,15 @@
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/bin/Debug/net8.0/PrLeagueX.DataAccessLayer.deps.json
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/bin/Debug/net8.0/PrLeagueX.DataAccessLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/bin/Debug/net8.0/PrLeagueX.DataAccessLayer.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/bin/Debug/net8.0/PrLeagueX.Entity.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/bin/Debug/net8.0/PrLeagueX.Entity.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.csproj.AssemblyReference.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.AssemblyInfoInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.AssemblyInfo.cs
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.csproj.CoreCompileInputs.cache
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeague.145D4D96.Up2Date
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/refint/PrLeagueX.DataAccessLayer.dll
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/PrLeagueX.DataAccessLayer.pdb
+/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.DataAccessLayer/obj/Debug/net8.0/ref/PrLeagueX.DataAccessLayer.dll
