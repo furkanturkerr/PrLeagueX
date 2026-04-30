@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrLeagueX.Entity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2a031031478652e32db072503d83821fb96bf17")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f00fd73358781ef0e7b6a4822d9f1de43f8c6ee0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrLeagueX.Entity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrLeagueX.Entity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

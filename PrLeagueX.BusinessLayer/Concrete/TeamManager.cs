@@ -45,4 +45,10 @@ public class TeamManager : ITeamService
     {
         await _teamDal.DeleteAsync(id);
     }
+
+    public async Task<List<ResultTeamDto>> TGetListWithStadiumsAsync()
+    {
+        var values = await _teamDal.GetListWithStadiumsAsync();
+        return _mapper.Map<List<ResultTeamDto>>(values);
+    }
 }

@@ -25,6 +25,8 @@ builder.Services.AddScoped<ISeasonDal, EfSeasonDal>();
 builder.Services.AddScoped<ISeasonService, SeasonManager>();
 builder.Services.AddScoped<IFixtureService, FixtureManager>();
 builder.Services.AddScoped<IDefaultMatchService, DefaultMatchManager>();
+builder.Services.AddScoped<IStadiumService, StadiumManager>();
+builder.Services.AddScoped<IStadiumDal, EfStadiumDal>();
 
 var app = builder.Build();
 

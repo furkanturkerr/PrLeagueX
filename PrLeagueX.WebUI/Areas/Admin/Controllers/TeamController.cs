@@ -1,6 +1,8 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using PrLeagueX.DtoLayer.StadiumDtos;
 using PrLeagueX.DtoLayer.TeamDtos;
 
 namespace PrLeagueX.WebUI.Areas.Admin.Controllers;
@@ -18,7 +20,7 @@ public class TeamController : Controller
     public async Task<IActionResult> Index()
     {
         var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5164/api/Teams");
+        var response = await client.GetAsync("http://localhost:5164/api/Teams/TeamListWithStadiums");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadAsStringAsync();
@@ -28,8 +30,16 @@ public class TeamController : Controller
         return View();
     }
 
-    public IActionResult CreateTeam()
+    public async Task<IActionResult> CreateTeam()
     {
+        var client = _httpClientFactory.CreateClient();
+        var response = await client.GetAsync("http://localhost:5164/api/Stadiums");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var stadiums = JsonConvert.DeserializeObject<List<ResultStadiumDto>>(jsonData);
+            ViewBag.Stadiums = new SelectList(stadiums, "StadiumId", "StadiumName");
+        }
         return View();
     }
 
@@ -56,6 +66,21 @@ public class TeamController : Controller
         {
             var jsonData = await response.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<UpdateTeamDto>(jsonData);
+            
+            var stadiumResponse = await client.GetAsync("http://localhost:5164/api/Stadiums");
+
+            if (stadiumResponse.IsSuccessStatusCode)
+            {
+                var stadiumJson = await stadiumResponse.Content.ReadAsStringAsync();
+                var stadiums = JsonConvert.DeserializeObject<List<ResultStadiumDto>>(stadiumJson);
+
+                ViewBag.Stadiums = new SelectList(
+                    stadiums,
+                    "StadiumId",
+                    "StadiumName"
+                );
+            }
+            
             return View(values);
         }
         return View();
@@ -67,7 +92,7 @@ public class TeamController : Controller
         var client = _httpClientFactory.CreateClient();
         var jsonData = JsonConvert.SerializeObject(dto);
         StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-        var response = await client.PutAsync("http://localhost:5164/api/Teams/UpdateTeam", stringContent);
+        var response = await client.PutAsync("http://localhost:5164/api/Teams", stringContent);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("Index");

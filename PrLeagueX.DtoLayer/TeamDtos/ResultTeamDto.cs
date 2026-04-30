@@ -11,7 +11,5 @@ public class ResultTeamDto
     public string StadiumName { get; set; }
     public int FoundedYear { get; set; }
 
-    public bool IsActive { get; set; } = true;
-    
-    public int? StadiumId { get; set; }
+    public bool IsActive { get; set; } = true; 
 }

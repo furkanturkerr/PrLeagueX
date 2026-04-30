@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrLeagueX.DataAccessLayer.Concrate;
 
@@ -11,9 +12,11 @@ using PrLeagueX.DataAccessLayer.Concrate;
 namespace PrLeagueX.DataAccessLayer.Migrations
 {
     [DbContext(typeof(PrLeagueXContext))]
-    partial class PrLeagueXContextModelSnapshot : ModelSnapshot
+    [Migration("20260430123240_update_team")]
+    partial class update_team
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

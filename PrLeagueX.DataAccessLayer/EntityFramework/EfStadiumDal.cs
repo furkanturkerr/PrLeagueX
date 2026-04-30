@@ -9,5 +9,6 @@ public class EfStadiumDal : GenericRepository<Stadium>, IStadiumDal
 {
     public EfStadiumDal(PrLeagueXContext context) : base(context)
     {
+        
     }
 }

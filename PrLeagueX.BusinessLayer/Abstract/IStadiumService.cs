@@ -1,6 +1,8 @@
+using PrLeagueX.DtoLayer.StadiumDtos;
+
 namespace PrLeagueX.BusinessLayer.Abstract;
 
-public class IStadiumService
+public interface IStadiumService : IGenericService<ResultStadiumDto, CreateStadiumDto, UpdateStadiumDto>
 {
     
 }

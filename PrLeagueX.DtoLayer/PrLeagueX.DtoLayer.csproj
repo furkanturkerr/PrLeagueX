@@ -10,7 +10,6 @@
       <Folder Include="LeagueDtos\" />
       <Folder Include="MatchDetailDtos\" />
       <Folder Include="MatchStatisticDtos\" />
-      <Folder Include="StadiumDtos\" />
     </ItemGroup>
 
 </Project>

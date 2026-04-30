@@ -26,45 +26,45 @@
         <form asp-area="Admin" asp-controller="Team" asp-action="UpdateTeam" method="post">
             @Html.AntiForgeryToken()
 
-            <!-- ID -->
             <input type="hidden" asp-for="TeamId" />
 
-            <!-- LOGO + GENEL -->
-            <div style="display:grid;grid-template-columns:110px 1fr;gap:22px;align-items:start;margin-bottom:22px">
-                
-                <!-- LOGO PREVIEW -->
-                <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center">
-                    <div style="width:70px;height:70px;margin:0 auto 10px;border-radius:50%;background:var(--elevated);border:1px solid rgba(41,121,255,.25);display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:24px;align-items:start;margin-bottom:24px">
+
+                <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;text-align:center">
+                    <div style="width:84px;height:84px;margin:0 auto 12px;border-radius:50%;background:var(--elevated);border:1px solid rgba(41,121,255,.25);display:flex;align-items:center;justify-content:center;overflow:hidden">
                         @if (!string.IsNullOrEmpty(Model.LogoUrl))
                         {
                             <img src="@Model.LogoUrl" style="width:100%;height:100%;object-fit:contain;padding:5px" />
                         }
                         else
                         {
-                            <i class="bi bi-image" style="font-size:28px;color:var(--t3)"></i>
+                            <i class="bi bi-image" style="font-size:30px;color:var(--t3)"></i>
                         }
                     </div>
+
                     <div style="font-family:var(--fd);font-size:11px;color:var(--t3);font-weight:700;letter-spacing:1px">
                         LOGO ÖNİZLEME
                     </div>
                 </div>
 
-                <!-- FORM -->
-                <div>
+                <div style="min-width:0">
                     <div class="form-group">
                         <label class="form-label">Logo URL</label>
-                        <input asp-for="LogoUrl" class="form-control" />
+                        <input asp-for="LogoUrl" class="form-control" placeholder="https://example.com/logo.png" />
+                        <span asp-validation-for="LogoUrl" style="color:var(--live);font-size:12px"></span>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Takım Adı *</label>
-                            <input asp-for="TeamName" class="form-control" />
+                            <input asp-for="TeamName" class="form-control" placeholder="ör. Manchester City" />
+                            <span asp-validation-for="TeamName" style="color:var(--live);font-size:12px"></span>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Kısa Ad *</label>
-                            <input asp-for="ShortName" class="form-control" maxlength="3" />
+                            <input asp-for="ShortName" class="form-control" placeholder="ör. MCI" maxlength="3" />
+                            <span asp-validation-for="ShortName" style="color:var(--live);font-size:12px"></span>
                         </div>
                     </div>
                 </div>
@@ -72,52 +72,47 @@
 
             <hr class="dvdr" />
 
-            <!-- ALT BİLGİLER -->
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Şehir</label>
-                    <input asp-for="City" class="form-control" />
+                    <input asp-for="City" class="form-control" placeholder="ör. Manchester" />
+                    <span asp-validation-for="City" style="color:var(--live);font-size:12px"></span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Stadyum Adı</label>
-                    <input asp-for="StadiumName" class="form-control" />
+                    <label class="form-label">Stadyum</label>
+                    <select asp-for="StadiumId" asp-items="ViewBag.Stadiums" class="form-control form-select">
+                        <option value="">Stadyum Seçiniz</option>
+                    </select>
+                    <span asp-validation-for="StadiumId" style="color:var(--live);font-size:12px"></span>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Kuruluş Yılı</label>
-                    <input asp-for="FoundedYear" type="number" class="form-control" />
+                    <input asp-for="FoundedYear" type="number" class="form-control" placeholder="ör. 1880" />
+                    <span asp-validation-for="FoundedYear" style="color:var(--live);font-size:12px"></span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Stadyum ID</label>
-                    <input asp-for="StadiumId" type="number" class="form-control" />
+                    <label class="form-label">Durum</label>
+
+                    <select asp-for="IsActive" class="form-control form-select">
+                        <option value="true">Aktif</option>
+                        <option value="false">Pasif</option>
+                    </select>
+
+                    <span asp-validation-for="IsActive" style="color:var(--live);font-size:12px"></span>
                 </div>
             </div>
 
-            <!-- AKTİF -->
-            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between">
-                <div>
-                    <div style="font-family:var(--fd);font-size:14px;font-weight:800;color:var(--t1)">
-                        Takım Aktif
-                    </div>
-                    <div style="font-size:12px;color:var(--t3)">
-                        Pasif yapılırsa listelerde görünmez.
-                    </div>
-                </div>
-
-                <input asp-for="IsActive" type="checkbox" />
-            </div>
-
-            <!-- BUTONLAR -->
-            <div style="display:flex;gap:10px;justify-content:flex-end">
+            <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px">
                 <a href="/Admin/Team/Index" class="btn btn-ghost">
-                    Vazgeç
+                    <i class="bi bi-x-lg"></i> Vazgeç
                 </a>
 
-                <button class="btn btn-blue">
+                <button type="submit" class="btn btn-blue">
                     <i class="bi bi-check-lg"></i> Güncelle
                 </button>
             </div>

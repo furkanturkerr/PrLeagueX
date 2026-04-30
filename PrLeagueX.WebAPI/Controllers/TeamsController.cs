@@ -49,5 +49,12 @@ namespace PrLeagueX.WebAPI.Controllers
             var values = await _teamService.TGetByIdAsync(id);
             return Ok(values);
         }
+        
+        [HttpGet("TeamListWithStadiums")]
+        public async Task<IActionResult> GetTeamListWithStadiums()
+        {
+            var values = await _teamService.TGetListWithStadiumsAsync();
+            return Ok(values);
+        }
     }
 }
