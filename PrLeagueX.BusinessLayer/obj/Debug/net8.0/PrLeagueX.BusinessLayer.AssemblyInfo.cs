@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrLeagueX.BusinessLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4dcedf9a3baa90b808e8ddc5e680ec5763604a29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2a031031478652e32db072503d83821fb96bf17")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrLeagueX.BusinessLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrLeagueX.BusinessLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Panel — GoalZone Premier League</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#060b14;--bg2:#090e1a;--card:#0f1824;--card2:#131f2e;--elevated:#182234;
+  --green:#00e676;--blue:#2979ff;--live:#ff1744;--gold:#ffd600;--yellow:#ffc107;--red:#f44336;
+  --t1:#eef2ff;--t2:#7b96c4;--t3:#3d5478;--border:#162030;
+  --r1:8px;--r2:12px;--r3:16px;
+  --tr:all .2s cubic-bezier(.4,0,.2,1);
+  --fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+  --adm-accent:#ffd600;
+  --sidebar:240px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;display:flex;flex-direction:column}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--elevated);border-radius:2px}
+a{text-decoration:none;color:inherit}img{display:block}
+input,select,textarea{outline:none}
+button{cursor:pointer;font-family:var(--fb)}
+
+/* ── TOP BAR ── */
+.topbar{background:rgba(6,11,20,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;gap:16px;padding:0 24px;height:56px;
+  box-shadow:0 2px 24px rgba(0,0,0,.6)}
+.tb-brand{display:flex;align-items:center;gap:10px}
+.tb-ico{width:30px;height:30px;background:linear-gradient(135deg,var(--green),var(--blue));
+  border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.tb-name{font-family:var(--fd);font-size:19px;font-weight:800;letter-spacing:1px}
+.tb-name span{color:var(--green)}
+.tb-sep{width:1px;height:24px;background:var(--border)}
+.adm-badge{background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.3);
+  color:var(--gold);border-radius:6px;padding:3px 10px;
+  font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:5px}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tb-link{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--t3);padding:6px 12px;border-radius:var(--r1);
+  border:1px solid var(--border);transition:var(--tr)}
+.tb-link:hover{background:var(--elevated);color:var(--t2)}
+.tb-live{display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:11px;
+  font-weight:700;letter-spacing:1px;color:var(--live);text-transform:uppercase}
+.live-dot{width:6px;height:6px;background:var(--live);border-radius:50%;animation:pdot 1.4s infinite}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;min-height:0}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--bg2);
+  border-right:1px solid var(--border);padding:20px 0;
+  position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sb-section{margin-bottom:8px}
+.sb-label{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--t3);padding:14px 20px 6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;
+  font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:.5px;
+  color:var(--t2);cursor:pointer;transition:var(--tr);border-left:3px solid transparent;
+  position:relative}
+.sb-item:hover{background:rgba(255,255,255,.03);color:var(--t1)}
+.sb-item.active{color:var(--gold);background:rgba(255,214,0,.05);border-left-color:var(--gold)}
+.sb-item i{font-size:15px;flex-shrink:0}
+.sb-badge{margin-left:auto;background:var(--live);color:#fff;border-radius:8px;
+  font-size:10px;padding:1px 6px;font-weight:700}
+.sb-badge.blue{background:var(--blue)}
+.sb-badge.green{background:var(--green);color:var(--bg)}
+
+/* ── MAIN CONTENT ── */
+.main{flex:1;min-width:0;padding:28px 28px 56px}
+
+/* ── PAGE HEADER ── */
+.page-hd{margin-bottom:28px}
+.page-title{font-family:var(--fd);font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:.5px;line-height:1}
+.page-sub{font-size:12px;color:var(--t3);margin-top:5px}
+.page-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-card.s-gold::before{background:var(--gold)}
+.stat-card.s-green::before{background:var(--green)}
+.stat-card.s-blue::before{background:var(--blue)}
+.stat-card.s-live::before{background:var(--live)}
+.sc-num{font-family:var(--fd);font-size:32px;font-weight:900;line-height:1}
+.sc-lbl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-top:5px}
+.sc-chg{font-size:11px;margin-top:6px}
+
+/* ── SECTION PANELS ── */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);
+  margin-bottom:24px;overflow:hidden;display:none}
+.panel.active{display:block}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px}
+.ph-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:16px;flex-shrink:0}
+.ph-ico.gold{background:rgba(255,214,0,.12);color:var(--gold)}
+.ph-ico.green{background:rgba(0,230,118,.1);color:var(--green)}
+.ph-ico.blue{background:rgba(41,121,255,.1);color:var(--blue)}
+.ph-ico.live{background:rgba(255,23,68,.1);color:var(--live)}
+.ph-ico.purple{background:rgba(120,80,255,.1);color:#a78bfa}
+.ph-title{font-family:var(--fd);font-size:17px;font-weight:800;letter-spacing:.3px}
+.ph-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.ph-right{margin-left:auto}
+.panel-body{padding:22px}
+
+/* ── FORM ELEMENTS ── */
+.form-group{margin-bottom:18px}
+.form-label{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--t3);display:block;margin-bottom:7px}
+.form-control{width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r1);padding:10px 14px;color:var(--t1);font-family:var(--fb);
+  font-size:14px;transition:var(--tr)}
+.form-control:focus{border-color:rgba(41,121,255,.5);background:var(--elevated);
+  box-shadow:0 0 0 3px rgba(41,121,255,.1)}
+.form-control::placeholder{color:var(--t3)}
+select.form-control option{background:var(--card2);color:var(--t1)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%233d5478'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;border-radius:var(--r1);
+  padding:10px 18px;font-family:var(--fd);font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;transition:var(--tr);cursor:pointer}
+.btn-gold{background:var(--gold);color:#0a0a0a}
+.btn-gold:hover{background:#ffe040;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,214,0,.2)}
+.btn-green{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);color:var(--green)}
+.btn-green:hover{background:rgba(0,230,118,.2)}
+.btn-blue{background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.25);color:var(--blue)}
+.btn-blue:hover{background:rgba(41,121,255,.2)}
+.btn-red{background:rgba(255,23,68,.1);border:1px solid rgba(255,23,68,.2);color:var(--live)}
+.btn-red:hover{background:rgba(255,23,68,.18)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--t2)}
+.btn-ghost:hover{background:var(--elevated);color:var(--t1)}
+.btn-sm{padding:6px 12px;font-size:11px}
+
+/* ── TABLE ── */
+.data-table{width:100%;border-collapse:separate;border-spacing:0 4px}
+.data-table thead th{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--t3);padding:6px 12px;text-align:left;border:none}
+.data-table tbody tr{background:var(--card2);border-radius:var(--r1);transition:var(--tr);cursor:pointer}
+.data-table tbody tr:hover{background:var(--elevated)}
+.data-table td{padding:12px 12px;border:none;vertical-align:middle;font-size:13px}
+.data-table td:first-child{border-radius:var(--r1) 0 0 var(--r1)}
+.data-table td:last-child{border-radius:0 var(--r1) var(--r1) 0}
+
+/* ── STATUS BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:8px;padding:3px 9px;
+  font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap}
+.b-live{background:rgba(255,23,68,.12);color:var(--live);border:1px solid rgba(255,23,68,.22)}
+.b-fin{background:rgba(143,163,200,.08);color:var(--t3);border:1px solid var(--border)}
+.b-sched{background:rgba(41,121,255,.1);color:var(--blue);border:1px solid rgba(41,121,255,.2)}
+.b-gold{background:rgba(255,214,0,.1);color:var(--gold);border:1px solid rgba(255,214,0,.2)}
+
+/* ── ACTION TYPE CHIPS ── */
+.ev-chip{display:inline-flex;align-items:center;gap:5px;border-radius:6px;padding:2px 8px;
+  font-family:var(--fd);font-size:10px;font-weight:700;text-transform:uppercase}
+.ev-goal{background:rgba(0,230,118,.1);color:var(--green)}
+.ev-yellow{background:rgba(255,193,7,.1);color:var(--yellow)}
+.ev-red{background:rgba(255,23,68,.1);color:var(--live)}
+.ev-sub{background:rgba(41,121,255,.1);color:var(--blue)}
+
+/* ── TEAM LOGO CELL ── */
+.team-cell{display:flex;align-items:center;gap:9px}
+.tl{width:26px;height:26px;border-radius:50%;background:var(--elevated);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:9px;font-weight:800;color:var(--t2);flex-shrink:0;overflow:hidden}
+.tl img{width:100%;height:100%;object-fit:contain;padding:3px}
+.t-name{font-family:var(--fd);font-size:14px;font-weight:700}
+.t-city{font-size:10px;color:var(--t3)}
+
+/* ── SCORE DISPLAY ── */
+.score-disp{font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:-1px;
+  color:var(--t1);text-align:center;min-width:60px}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:12px 16px;display:flex;align-items:center;gap:10px;
+  font-size:13px;opacity:0;transform:translateY(10px);
+  transition:opacity .3s,transform .3s;pointer-events:auto}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.t-green{border-left:3px solid var(--green)}
+.toast.t-gold{border-left:3px solid var(--gold)}
+.toast.t-red{border-left:3px solid var(--live)}
+
+/* ── DIVIDER ── */
+.dvdr{border:none;border-top:1px solid var(--border);margin:18px 0}
+
+/* ── MINI WEEK NAV ── */
+.week-strip{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.wk-pill{background:var(--card2);border:1px solid var(--border);border-radius:var(--r1);
+  padding:5px 12px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:.5px;
+  color:var(--t3);cursor:pointer;transition:var(--tr)}
+.wk-pill:hover{color:var(--t2);background:var(--elevated)}
+.wk-pill.active{background:rgba(255,214,0,.1);border-color:rgba(255,214,0,.3);color:var(--gold)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .main{padding:16px 14px 40px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .form-row,.form-row3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="tb-brand">
+    <div class="tb-ico">⚽</div>
+    <span class="tb-name">Goal<span>Zone</span></span>
+  </div>
+  <div class="tb-sep"></div>
+  <div class="adm-badge"><i class="bi bi-shield-lock-fill"></i> Admin Panel</div>
+  <div class="tb-right">
+    <div class="tb-live"><span class="live-dot"></span>2 Canlı Maç</div>
+    <a href="index.html" class="tb-link"><i class="bi bi-arrow-left me-1"></i>Siteye Dön</a>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-section">
+    <div class="sb-label">Genel</div>
+    <div class="sb-item active" onclick="setPanel('dashboard')">
+      <i class="bi bi-grid-1x2"></i>Dashboard
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Yönetim</div>
+    <div class="sb-item" onclick="setPanel('teams')">
+      <i class="bi bi-shield-fill"></i>Takımlar
+      <span class="sb-badge blue">20</span>
+    </div>
+    <div class="sb-item" onclick="setPanel('fixtures')">
+      <i class="bi bi-calendar-event-fill"></i>Fikstür Ekle
+      <span class="sb-badge green">+</span>
+    </div>
+    <div class="sb-item" onclick="setPanel('results')">
+      <i class="bi bi-trophy-fill"></i>Sonuç Gir
+    </div>
+    <div class="sb-item" onclick="setPanel('events')">
+      <i class="bi bi-activity"></i>Maç Olayları
+    </div>
+    <div class="sb-item" onclick="setPanel('stats')">
+      <i class="bi bi-bar-chart-fill"></i>İstatistikler
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Sistem</div>
+    <div class="sb-item" onclick="setPanel('standing_calc')">
+      <i class="bi bi-calculator-fill"></i>Puan Hesabı
+    </div>
+  </div>
+
+  <div style="padding:20px;margin-top:12px">
+    <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:var(--r2);padding:14px">
+      <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:8px"><i class="bi bi-info-circle"></i> N-Layer Arch.</div>
+      <div style="font-size:11px;color:var(--t3);line-height:1.6">Controller → Service → Repository → Entity</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ═══════════ DASHBOARD ═══════════ -->
+  <div class="panel active" id="p-dashboard">
+    <div style="margin-bottom:28px">
+      <h1 class="page-title" style="font-family:var(--fd)">Dashboard <span style="color:var(--gold)">Özeti</span></h1>
+      <p class="page-sub">Premier League 2024/25 · GW 1–6 Demo Verisi · Anlık Puan Hesaplama</p>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stat-grid">
+      <div class="stat-card s-gold">
+        <div class="sc-num" style="color:var(--gold)">20</div>
+        <div class="sc-lbl">Toplam Takım</div>
+        <div class="sc-chg" style="color:var(--t3)">Teams entity</div>
+      </div>
+      <div class="stat-card s-blue">
+        <div class="sc-num" style="color:var(--blue)">60</div>
+        <div class="sc-lbl">Toplam Maç (GW1–6)</div>
+        <div class="sc-chg" style="color:var(--t3)">Fixtures entity</div>
+      </div>
+      <div class="stat-card s-live">
+        <div class="sc-num" style="color:var(--live)">2</div>
+        <div class="sc-lbl">Canlı Maç</div>
+        <div class="sc-chg" style="color:var(--live)">Status: InProgress</div>
+      </div>
+      <div class="stat-card s-green">
+        <div class="sc-num" style="color:var(--green)">147</div>
+        <div class="sc-lbl">Toplam Olay</div>
+        <div class="sc-chg" style="color:var(--t3)">MatchEvents entity</div>
+      </div>
+    </div>
+
+    <!-- PUAN SISTEMI PANEL -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);margin-bottom:24px;overflow:hidden">
+      <div class="panel-head">
+        <div class="ph-ico gold"><i class="bi bi-calculator"></i></div>
+        <div><div class="ph-title">Puan Hesaplama Sistemi</div><div class="ph-sub">Ayrı tablo yok — SQL'den anlık okunur · G+3 · B+1 · M+0</div></div>
+      </div>
+      <div class="panel-body">
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid rgba(0,230,118,.2);border-radius:var(--r2);padding:16px;text-align:center">
+              <div style="font-family:var(--fd);font-size:36px;font-weight:900;color:var(--green)">+3</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:4px">GALİBİYET</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid rgba(255,193,7,.2);border-radius:var(--r2);padding:16px;text-align:center">
+              <div style="font-family:var(--fd);font-size:36px;font-weight:900;color:var(--yellow)">+1</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:4px">BERABERLİK</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center">
+              <div style="font-family:var(--fd);font-size:36px;font-weight:900;color:var(--t3)">0</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:4px">MAĞLUBİYET</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--r1);padding:12px 16px;font-size:12px;color:var(--t3);font-style:italic;border-left:3px solid rgba(41,121,255,.4)">
+          <i class="bi bi-code-slash" style="color:var(--blue)"></i> &nbsp;
+          SELECT t.name, SUM(CASE WHEN m.homeScore &gt; m.awayScore AND f.homeTeamId = t.id THEN 3 WHEN m.homeScore = m.awayScore THEN 1 ELSE 0 END) AS pts FROM teams t JOIN fixtures f ON ... JOIN matches m ON ...
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden">
+      <div class="panel-head">
+        <div class="ph-ico blue"><i class="bi bi-lightning-fill"></i></div>
+        <div><div class="ph-title">Hızlı İşlemler</div><div class="ph-sub">Admin Panel Yetenekleri</div></div>
+      </div>
+      <div class="panel-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid rgba(255,214,0,.15);border-radius:var(--r2);padding:18px;cursor:pointer;transition:var(--tr)" onclick="setPanel('fixtures')" onmouseover="this.style.borderColor='rgba(255,214,0,.4)'" onmouseout="this.style.borderColor='rgba(255,214,0,.15)'">
+              <div style="font-size:24px;margin-bottom:10px">📅</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--gold)">Fikstür Ekle</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:5px">Ev sahibi + deplasman + tarih + stadyum girişi</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid rgba(0,230,118,.15);border-radius:var(--r2);padding:18px;cursor:pointer;transition:var(--tr)" onclick="setPanel('results')" onmouseover="this.style.borderColor='rgba(0,230,118,.4)'" onmouseout="this.style.borderColor='rgba(0,230,118,.15)'">
+              <div style="font-size:24px;margin-bottom:10px">⚽</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--green)">Sonuç Gir</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:5px">Skor, IY skoru ve durum güncellemesi</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:var(--bg2);border:1px solid rgba(41,121,255,.15);border-radius:var(--r2);padding:18px;cursor:pointer;transition:var(--tr)" onclick="setPanel('events')" onmouseover="this.style.borderColor='rgba(41,121,255,.4)'" onmouseout="this.style.borderColor='rgba(41,121,255,.15)'">
+              <div style="font-size:24px;margin-bottom:10px">📋</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--blue)">Maç Olayı</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:5px">Gol, kart, oyuncu değişikliği ekleme</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TEAMS ═══════════ -->
+  <div class="panel" id="p-teams">
+    <div class="panel-head">
+      <div class="ph-ico gold"><i class="bi bi-shield-fill"></i></div>
+      <div><div class="ph-title">Takım Yönetimi</div><div class="ph-sub">Teams Entity — id · name · shortName · stadium · city · logoUrl</div></div>
+      <div class="ph-right">
+        <button class="btn btn-gold" onclick="showAddTeamForm()"><i class="bi bi-plus-lg"></i> Yeni Takım</button>
+      </div>
+    </div>
+    <div class="panel-body">
+
+      <!-- ADD / EDIT TEAM FORM -->
+      <div id="teamForm" style="display:none;background:var(--bg2);border:1px solid rgba(255,214,0,.2);border-radius:var(--r2);padding:20px;margin-bottom:22px">
+        <div style="font-family:var(--fd);font-size:13px;font-weight:800;color:var(--gold);margin-bottom:16px;letter-spacing:.5px"><i class="bi bi-plus-circle"></i> YENİ TAKIM EKLE</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Takım Adı *</label>
+            <input type="text" class="form-control" placeholder="ör. Manchester City" id="tm-name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kısa Ad *</label>
+            <input type="text" class="form-control" placeholder="ör. MCI (3 harf)" id="tm-short" maxlength="3"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Şehir</label>
+            <input type="text" class="form-control" placeholder="Manchester" id="tm-city"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stadyum</label>
+            <input type="text" class="form-control" placeholder="Etihad Stadium" id="tm-stadium"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Logo URL</label>
+          <input type="text" class="form-control" placeholder="https://..." id="tm-logo"/>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-gold" onclick="saveTeam()"><i class="bi bi-check-lg"></i> Kaydet</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('teamForm').style.display='none'">İptal</button>
+        </div>
+      </div>
+
+      <!-- TEAMS TABLE -->
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Takım</th><th>Kısa Ad</th><th>Şehir</th><th>Stadyum</th><th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="teamsTable">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ FIXTURE ADD ═══════════ -->
+  <div class="panel" id="p-fixtures">
+    <div class="panel-head">
+      <div class="ph-ico gold"><i class="bi bi-calendar-event-fill"></i></div>
+      <div><div class="ph-title">Fikstür Oluştur</div><div class="ph-sub">Fixtures Entity — homeTeamId · awayTeamId · weekNumber · matchDate · time · stadium</div></div>
+    </div>
+    <div class="panel-body">
+      <div class="week-strip" id="fxWeekStrip"></div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(255,214,0,.18);border-radius:var(--r2);padding:20px;margin-bottom:24px">
+        <div style="font-family:var(--fd);font-size:13px;font-weight:800;color:var(--gold);margin-bottom:16px"><i class="bi bi-plus-circle"></i> YENİ MAÇ EKLE — <span id="fxWkLabel">Hafta 1</span></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Ev Sahibi Takım *</label>
+            <select class="form-control form-select" id="fx-home"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deplasman Takım *</label>
+            <select class="form-control form-select" id="fx-away"></select>
+          </div>
+        </div>
+        <div class="form-row3">
+          <div class="form-group">
+            <label class="form-label">Hafta No</label>
+            <input type="number" class="form-control" id="fx-week" value="1" min="1" max="6"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Maç Tarihi *</label>
+            <input type="date" class="form-control" id="fx-date"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Maç Saati</label>
+            <input type="time" class="form-control" id="fx-time" value="20:00"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stadyum</label>
+          <input type="text" class="form-control" id="fx-stadium" placeholder="Otomatik doldurulur veya düzenle"/>
+        </div>
+        <button class="btn btn-gold" onclick="saveFixture()"><i class="bi bi-calendar-plus"></i> Fikstüre Ekle</button>
+      </div>
+
+      <!-- FIXTURE LIST -->
+      <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px">Oluşturulan Fikstürler</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>GW</th><th>Ev Sahibi</th><th>Deplasman</th><th>Tarih</th><th>Saat</th><th>Stadyum</th><th>Durum</th><th>İşlem</th></tr>
+          </thead>
+          <tbody id="fixtureTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ RESULTS ═══════════ -->
+  <div class="panel" id="p-results">
+    <div class="panel-head">
+      <div class="ph-ico green"><i class="bi bi-trophy-fill"></i></div>
+      <div><div class="ph-title">Maç Sonucu Gir</div><div class="ph-sub">Matches Entity — fixtureId · homeScore · awayScore · htHomeScore · htAwayScore · status</div></div>
+    </div>
+    <div class="panel-body">
+
+      <!-- SCORE ENTRY FORM -->
+      <div style="background:var(--bg2);border:1px solid rgba(0,230,118,.18);border-radius:var(--r2);padding:20px;margin-bottom:24px">
+        <div style="font-family:var(--fd);font-size:13px;font-weight:800;color:var(--green);margin-bottom:16px"><i class="bi bi-pencil-square"></i> SKOR GİRİŞİ</div>
+        <div class="form-group">
+          <label class="form-label">Maç Seç *</label>
+          <select class="form-control form-select" id="res-match" onchange="fillMatchInfo()"></select>
+        </div>
+        <div id="matchPreview" style="display:none;margin-bottom:16px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center">
+            <div><div style="font-family:var(--fd);font-size:16px;font-weight:800" id="mpHome">—</div><div style="font-size:10px;color:var(--t3)">EV SAHİBİ</div></div>
+            <div style="font-family:var(--fd);font-size:22px;font-weight:900;color:var(--t3)">VS</div>
+            <div><div style="font-family:var(--fd);font-size:16px;font-weight:800" id="mpAway">—</div><div style="font-size:10px;color:var(--t3)">DEPLASMAN</div></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Ev Sahibi Gol *</label>
+            <input type="number" class="form-control" id="res-home-score" min="0" max="20" placeholder="0"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deplasman Gol *</label>
+            <input type="number" class="form-control" id="res-away-score" min="0" max="20" placeholder="0"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">İlk Yarı (Ev)</label>
+            <input type="number" class="form-control" id="res-ht-home" min="0" max="20" placeholder="0"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">İlk Yarı (Dep)</label>
+            <input type="number" class="form-control" id="res-ht-away" min="0" max="20" placeholder="0"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Maç Durumu *</label>
+          <select class="form-control form-select" id="res-status">
+            <option value="Scheduled">📅 Maç Oynanmadı (Scheduled)</option>
+            <option value="InProgress">🔴 Maç Devam Ediyor (InProgress)</option>
+            <option value="Finished" selected>✅ Maç Bitti (Finished)</option>
+          </select>
+        </div>
+        <button class="btn btn-green" onclick="saveResult()"><i class="bi bi-check2-circle"></i> Sonucu Kaydet</button>
+      </div>
+
+      <!-- RESULTS TABLE -->
+      <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px">Girilmiş Sonuçlar</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>GW</th><th>Ev Sahibi</th><th>Skor</th><th>Deplasman</th><th>İY</th><th>Durum</th><th>Sonuç</th></tr>
+          </thead>
+          <tbody id="resultsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ EVENTS ═══════════ -->
+  <div class="panel" id="p-events">
+    <div class="panel-head">
+      <div class="ph-ico blue"><i class="bi bi-activity"></i></div>
+      <div><div class="ph-title">Maç Olayı Ekle</div><div class="ph-sub">MatchEvents Entity — matchId · actionType · minute · description</div></div>
+    </div>
+    <div class="panel-body">
+
+      <!-- EVENT FORM -->
+      <div style="background:var(--bg2);border:1px solid rgba(41,121,255,.18);border-radius:var(--r2);padding:20px;margin-bottom:24px">
+        <div style="font-family:var(--fd);font-size:13px;font-weight:800;color:var(--blue);margin-bottom:16px"><i class="bi bi-plus-circle"></i> MAÇ OLAYI GİRİŞİ</div>
+
+        <!-- ACTION TYPE SELECTOR -->
+        <div class="form-group">
+          <label class="form-label">ActionType *</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="actionTypePicker">
+            <button class="btn btn-green active-action" data-type="GOL" onclick="selectAction(this,'GOL')" style="border:2px solid var(--green)">⚽ Gol</button>
+            <button class="btn btn-ghost" data-type="SARI_KART" onclick="selectAction(this,'SARI_KART')" style="border:1px solid var(--border);color:var(--yellow)">🟨 Sarı Kart</button>
+            <button class="btn btn-ghost" data-type="KIRMIZI_KART" onclick="selectAction(this,'KIRMIZI_KART')" style="border:1px solid var(--border);color:var(--live)">🟥 Kırmızı Kart</button>
+            <button class="btn btn-ghost" data-type="OYUNCU_DEGISIKLIGI" onclick="selectAction(this,'OYUNCU_DEGISIKLIGI')" style="border:1px solid var(--border);color:var(--blue)">🔄 Oyuncu Değişikliği</button>
+          </div>
+          <input type="hidden" id="ev-type" value="GOL"/>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Maç Seç *</label>
+            <select class="form-control form-select" id="ev-match"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dakika *</label>
+            <input type="number" class="form-control" id="ev-minute" min="1" max="120" placeholder="45"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Açıklama *</label>
+          <input type="text" class="form-control" id="ev-desc" placeholder="ör. Bukayo Saka — Sol Köşe Şutu / Declan Rice — Faul / Trossard ↑ Martinelli ↓"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Taraf</label>
+          <select class="form-control form-select" id="ev-side">
+            <option value="HOME">Ev Sahibi</option>
+            <option value="AWAY">Deplasman</option>
+          </select>
+        </div>
+        <button class="btn btn-blue" onclick="saveEvent()"><i class="bi bi-plus-lg"></i> Olayı Ekle</button>
+      </div>
+
+      <!-- EVENTS TABLE -->
+      <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px">Kayıtlı Olaylar</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>Maç</th><th>Dk.</th><th>ActionType</th><th>Taraf</th><th>Açıklama</th><th>İşlem</th></tr>
+          </thead>
+          <tbody id="eventsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STATISTICS ═══════════ -->
+  <div class="panel" id="p-stats">
+    <div class="panel-head">
+      <div class="ph-ico purple"><i class="bi bi-bar-chart-fill"></i></div>
+      <div><div class="ph-title">İstatistik Kaydı</div><div class="ph-sub">Statistics Entity — matchId · possession · shots · shotsOnTarget · corners · fouls · offsides</div></div>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="form-label">Maç Seç *</label>
+        <select class="form-control form-select" id="st-match"></select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
+        <div>
+          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Ev Sahibi</div>
+          <div class="form-group"><label class="form-label">Top Hakimiyeti (%)</label><input type="number" class="form-control" id="st-poss-h" min="0" max="100" placeholder="55"/></div>
+          <div class="form-group"><label class="form-label">Şut</label><input type="number" class="form-control" id="st-shots-h" placeholder="12"/></div>
+          <div class="form-group"><label class="form-label">İsabetli Şut</label><input type="number" class="form-control" id="st-sot-h" placeholder="5"/></div>
+          <div class="form-group"><label class="form-label">Korner</label><input type="number" class="form-control" id="st-corn-h" placeholder="6"/></div>
+          <div class="form-group"><label class="form-label">Faul</label><input type="number" class="form-control" id="st-foul-h" placeholder="11"/></div>
+        </div>
+        <div>
+          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Deplasman</div>
+          <div class="form-group"><label class="form-label">Top Hakimiyeti (%)</label><input type="number" class="form-control" id="st-poss-a" min="0" max="100" placeholder="45"/></div>
+          <div class="form-group"><label class="form-label">Şut</label><input type="number" class="form-control" id="st-shots-a" placeholder="8"/></div>
+          <div class="form-group"><label class="form-label">İsabetli Şut</label><input type="number" class="form-control" id="st-sot-a" placeholder="3"/></div>
+          <div class="form-group"><label class="form-label">Korner</label><input type="number" class="form-control" id="st-corn-a" placeholder="4"/></div>
+          <div class="form-group"><label class="form-label">Faul</label><input type="number" class="form-control" id="st-foul-a" placeholder="14"/></div>
+        </div>
+      </div>
+      <button class="btn btn-blue" onclick="saveStats()"><i class="bi bi-save"></i> İstatistikleri Kaydet</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ STANDING CALC ═══════════ -->
+  <div class="panel" id="p-standing_calc">
+    <div class="panel-head">
+      <div class="ph-ico gold"><i class="bi bi-calculator-fill"></i></div>
+      <div><div class="ph-title">Anlık Puan Hesabı</div><div class="ph-sub">Ayrı standings tablosu yok — tüm maç verisinden runtime hesaplanır</div></div>
+    </div>
+    <div class="panel-body">
+      <div style="background:var(--bg2);border:1px solid rgba(255,214,0,.15);border-radius:var(--r2);padding:16px;margin-bottom:20px;font-size:12px;color:var(--t3)">
+        <i class="bi bi-info-circle" style="color:var(--blue)"></i> &nbsp;
+        Bu sayfa, <strong style="color:var(--t2)">Results</strong> bölümüne girilen maç sonuçlarından puan tablosunu anlık hesaplar. Sonuçlardan sonra <b>Güncelle</b> butonuna basın.
+      </div>
+      <button class="btn btn-gold" onclick="calcStandings()" style="margin-bottom:20px"><i class="bi bi-arrow-clockwise"></i> Tabloyu Hesapla & Güncelle</button>
+      <div style="overflow-x:auto">
+        <table class="data-table" id="standingsCalcTable">
+          <thead>
+            <tr>
+              <th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th>
+              <th style="color:var(--t2)">Son 5</th>
+              <th style="color:var(--gold)">P</th>
+            </tr>
+          </thead>
+          <tbody id="standingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── STATE ──
+const TEAMS = [
+  {id:1,name:'Arsenal',short:'ARS',city:'London',stadium:'Emirates Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg'},
+  {id:2,name:'Aston Villa',short:'AVL',city:'Birmingham',stadium:'Villa Park',logo:'https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg'},
+  {id:3,name:'Bournemouth',short:'BOU',city:'Bournemouth',stadium:'Vitality Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/e/e5/AFC_Bournemouth_%282013%29.svg'},
+  {id:4,name:'Brentford',short:'BRE',city:'London',stadium:'Gtech Community Stadium',logo:''},
+  {id:5,name:'Brighton',short:'BHA',city:'Brighton',stadium:'Falmer Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/f/fd/Brighton_%26_Hove_Albion_FC_logo.svg'},
+  {id:6,name:'Chelsea',short:'CHE',city:'London',stadium:'Stamford Bridge',logo:'https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg'},
+  {id:7,name:'Crystal Palace',short:'CRY',city:'London',stadium:'Selhurst Park',logo:'https://upload.wikimedia.org/wikipedia/en/a/a2/Crystal_Palace_FC_logo_%282022%29.svg'},
+  {id:8,name:'Everton',short:'EVE',city:'Liverpool',stadium:'Goodison Park',logo:'https://upload.wikimedia.org/wikipedia/en/7/7c/Everton_FC_logo.svg'},
+  {id:9,name:'Fulham',short:'FUL',city:'London',stadium:'Craven Cottage',logo:'https://upload.wikimedia.org/wikipedia/en/e/eb/Fulham_FC_%28shield%29.svg'},
+  {id:10,name:'Ipswich Town',short:'IPS',city:'Ipswich',stadium:'Portman Road',logo:'https://upload.wikimedia.org/wikipedia/en/4/43/Ipswich_Town.svg'},
+  {id:11,name:'Leicester City',short:'LEI',city:'Leicester',stadium:'King Power Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/2/2d/Leicester_City_crest.svg'},
+  {id:12,name:'Liverpool',short:'LIV',city:'Liverpool',stadium:'Anfield',logo:'https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg'},
+  {id:13,name:'Man City',short:'MCI',city:'Manchester',stadium:'Etihad Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg'},
+  {id:14,name:'Man United',short:'MUN',city:'Manchester',stadium:'Old Trafford',logo:'https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg'},
+  {id:15,name:'Newcastle',short:'NEW',city:'Newcastle',stadium:"St. James' Park",logo:'https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg'},
+  {id:16,name:'Nottm Forest',short:'NFO',city:'Nottingham',stadium:'City Ground',logo:'https://upload.wikimedia.org/wikipedia/en/e/e5/Nottingham_Forest_FC_logo.svg'},
+  {id:17,name:'Southampton',short:'SOU',city:'Southampton',stadium:"St. Mary's Stadium",logo:'https://upload.wikimedia.org/wikipedia/en/c/c9/FC_Southampton.svg'},
+  {id:18,name:'Tottenham',short:'TOT',city:'London',stadium:'Tottenham Hotspur Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg'},
+  {id:19,name:'West Ham',short:'WHU',city:'London',stadium:'London Stadium',logo:'https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg'},
+  {id:20,name:'Wolves',short:'WOL',city:'Wolverhampton',stadium:'Molineux Stadium',logo:''}
+];
+
+let fixtures=[
+  {id:1,homeId:1,awayId:12,week:1,date:'2024-08-17',time:'12:30',stadium:'Emirates Stadium',status:'Finished'},
+  {id:2,homeId:13,awayId:6,week:1,date:'2024-08-17',time:'15:00',stadium:'Etihad Stadium',status:'Finished'},
+  {id:3,homeId:12,awayId:18,week:2,date:'2024-08-24',time:'15:00',stadium:'Anfield',status:'Finished'},
+  {id:4,homeId:6,awayId:2,week:2,date:'2024-08-24',time:'17:30',stadium:'Stamford Bridge',status:'Finished'},
+  {id:5,homeId:1,awayId:14,week:3,date:'2024-08-31',time:'12:30',stadium:'Emirates Stadium',status:'InProgress'},
+  {id:6,homeId:13,awayId:12,week:3,date:'2024-08-31',time:'16:30',stadium:'Etihad Stadium',status:'Scheduled'},
+];
+
+let results=[
+  {fixtureId:1,homeScore:2,awayScore:2,htHome:1,htAway:1,status:'Finished'},
+  {fixtureId:2,homeScore:3,awayScore:1,htHome:2,htAway:0,status:'Finished'},
+  {fixtureId:3,homeScore:2,awayScore:0,htHome:1,htAway:0,status:'Finished'},
+  {fixtureId:4,homeScore:1,awayScore:1,htHome:0,htAway:1,status:'Finished'},
+];
+
+let events=[
+  {id:1,matchId:1,type:'GOL',minute:12,description:'Bukayo Saka — Sol Köşe',side:'HOME'},
+  {id:2,matchId:1,type:'SARI_KART',minute:27,description:'Declan Rice — Faul',side:'HOME'},
+  {id:3,matchId:1,type:'GOL',minute:39,description:'M. Salah — Düz Şut',side:'AWAY'},
+  {id:4,matchId:1,type:'GOL',minute:61,description:'Kai Havertz — Kafa Golü',side:'HOME'},
+  {id:5,matchId:1,type:'KIRMIZI_KART',minute:78,description:'Calafiori — 2. Sarı / Kırmızı',side:'HOME'},
+  {id:6,matchId:1,type:'OYUNCU_DEGISIKLIGI',minute:52,description:'Trossard ↑ Martinelli ↓',side:'HOME'},
+  {id:7,matchId:1,type:'GOL',minute:84,description:'D. Núñez — Penaltı',side:'AWAY'},
+];
+
+let activePanel='dashboard';
+let selectedAction='GOL';
+let fxCurrentWeek=1;
+let nextFxId=10,nextEvId=20;
+
+// ── UTILS ──
+const T=id=>TEAMS.find(t=>t.id===id);
+const F=id=>fixtures.find(f=>f.id===id);
+function teamLogo(t){
+  return `<div class="tl">${t.logo?`<img src="${t.logo}" alt="${t.short}" onerror="this.parentNode.textContent='${t.short}'">`:`${t.short}`}</div>`;
+}
+function teamCell(t){
+  return `<div class="team-cell">${teamLogo(t)}<div><div class="t-name">${t.name}</div><div class="t-city">${t.city||''}</div></div></div>`;
+}
+function statusBadge(s){
+  if(s==='InProgress') return `<span class="badge b-live"><span class="live-dot"></span>Canlı</span>`;
+  if(s==='Finished') return `<span class="badge b-fin">✓ Bitti</span>`;
+  return `<span class="badge b-sched">📅 Planlandı</span>`;
+}
+function actionChip(t){
+  const m={GOL:'ev-goal ⚽ Gol',SARI_KART:'ev-yellow 🟨 Sarı',KIRMIZI_KART:'ev-red 🟥 Kırmızı',OYUNCU_DEGISIKLIGI:'ev-sub 🔄 Değişiklik'};
+  const [cls,...rest]=m[t].split(' ');
+  return `<span class="ev-chip ${cls}">${rest.join(' ')}</span>`;
+}
+function resultBadge(hS,aS){
+  if(hS>aS) return `<span style="color:var(--green);font-family:var(--fd);font-size:12px;font-weight:800">EV G</span>`;
+  if(aS>hS) return `<span style="color:var(--live);font-family:var(--fd);font-size:12px;font-weight:800">DEP G</span>`;
+  return `<span style="color:var(--yellow);font-family:var(--fd);font-size:12px;font-weight:800">BER</span>`;
+}
+
+// ── PANEL NAV ──
+function setPanel(id){
+  activePanel=id;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('p-'+id);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(s=>{
+    s.classList.toggle('active',s.getAttribute('onclick')?.includes("'"+id+"'"));
+  });
+  if(id==='teams') renderTeams();
+  if(id==='fixtures'){renderFixtureTable();populateSelects();buildWeekStrip();}
+  if(id==='results'){renderResults();populateMatchSelect('res-match');fillMatchInfo();}
+  if(id==='events'){renderEvents();populateMatchSelect('ev-match');populateMatchSelect('st-match');}
+  if(id==='stats') populateMatchSelect('st-match');
+  if(id==='standing_calc') calcStandings();
+}
+
+// ── POPULATE SELECTS ──
+function populateSelects(){
+  ['fx-home','fx-away'].forEach(id=>{
+    const s=document.getElementById(id);
+    s.innerHTML='<option value="">Takım Seç…</option>'+TEAMS.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  });
+  document.getElementById('fx-home').addEventListener('change',function(){
+    const t=T(parseInt(this.value));
+    if(t) document.getElementById('fx-stadium').value=t.stadium;
+  });
+}
+function populateMatchSelect(selId){
+  const sel=document.getElementById(selId);
+  if(!sel) return;
+  sel.innerHTML='<option value="">Maç Seç…</option>'+fixtures.map(f=>{
+    const h=T(f.homeId),a=T(f.awayId);
+    return `<option value="${f.id}">GW${f.week}: ${h?.name} vs ${a?.name} (${f.date})</option>`;
+  }).join('');
+}
+
+// ── TEAMS ──
+function showAddTeamForm(){
+  const tf=document.getElementById('teamForm');
+  tf.style.display=tf.style.display==='none'?'block':'none';
+}
+function saveTeam(){
+  const name=document.getElementById('tm-name').value.trim();
+  const short=document.getElementById('tm-short').value.trim().toUpperCase();
+  if(!name||!short){toast('Takım adı ve kısa ad zorunlu!','red');return;}
+  TEAMS.push({id:TEAMS.length+1,name,short,city:document.getElementById('tm-city').value,
+    stadium:document.getElementById('tm-stadium').value,logo:document.getElementById('tm-logo').value});
+  document.getElementById('teamForm').style.display='none';
+  ['tm-name','tm-short','tm-city','tm-stadium','tm-logo'].forEach(id=>document.getElementById(id).value='');
+  renderTeams();
+  toast(`${name} takımı eklendi!`,'green');
+}
+function renderTeams(){
+  document.getElementById('teamsTable').innerHTML=TEAMS.map((t,i)=>`
+    <tr>
+      <td style="color:var(--t3);font-family:var(--fd);font-weight:800">${i+1}</td>
+      <td>${teamCell(t)}</td>
+      <td><span class="badge b-gold">${t.short}</span></td>
+      <td style="color:var(--t2)">${t.city||'—'}</td>
+      <td style="color:var(--t3);font-size:12px">${t.stadium||'—'}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="editTeam(${t.id})"><i class="bi bi-pencil"></i></button></td>
+    </tr>`).join('');
+}
+function editTeam(id){toast('Düzenleme modu — backend entegrasyonu gerekir','gold');}
+
+// ── FIXTURES ──
+function buildWeekStrip(){
+  const strip=document.getElementById('fxWeekStrip');
+  strip.innerHTML=[1,2,3,4,5,6].map(w=>`<button class="wk-pill${w===fxCurrentWeek?' active':''}" onclick="setFxWeek(${w})">GW ${w}</button>`).join('');
+}
+function setFxWeek(w){
+  fxCurrentWeek=w;
+  document.getElementById('fx-week').value=w;
+  document.getElementById('fxWkLabel').textContent='Hafta '+w;
+  buildWeekStrip();
+}
+function saveFixture(){
+  const homeId=parseInt(document.getElementById('fx-home').value);
+  const awayId=parseInt(document.getElementById('fx-away').value);
+  const week=parseInt(document.getElementById('fx-week').value)||fxCurrentWeek;
+  const date=document.getElementById('fx-date').value;
+  const time=document.getElementById('fx-time').value;
+  const stadium=document.getElementById('fx-stadium').value;
+  if(!homeId||!awayId||homeId===awayId||!date){toast('Ev sahibi, deplasman ve tarih zorunlu!','red');return;}
+  fixtures.push({id:nextFxId++,homeId,awayId,week,date,time,stadium,status:'Scheduled'});
+  renderFixtureTable();
+  toast(`GW${week}: ${T(homeId).name} vs ${T(awayId).name} fikstüre eklendi`,'green');
+}
+function renderFixtureTable(){
+  document.getElementById('fixtureTable').innerHTML=fixtures.map(f=>{
+    const h=T(f.homeId),a=T(f.awayId);
+    return `<tr>
+      <td><span class="badge b-sched">GW${f.week}</span></td>
+      <td>${teamCell(h)}</td>
+      <td>${teamCell(a)}</td>
+      <td style="color:var(--t2);font-size:12px">${f.date}</td>
+      <td style="color:var(--t3);font-size:12px">${f.time}</td>
+      <td style="color:var(--t3);font-size:11px">${f.stadium||'—'}</td>
+      <td>${statusBadge(f.status)}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="deleteFixture(${f.id})"><i class="bi bi-trash"></i></button></td>
+    </tr>`;
+  }).join('');
+}
+function deleteFixture(id){
+  if(!confirm('Bu fikstürü silmek istiyor musunuz?')) return;
+  fixtures=fixtures.filter(f=>f.id!==id);
+  renderFixtureTable();
+  toast('Fikstür silindi','red');
+}
+
+// ── RESULTS ──
+function fillMatchInfo(){
+  const id=parseInt(document.getElementById('res-match').value);
+  const prev=document.getElementById('matchPreview');
+  if(!id){prev.style.display='none';return;}
+  const f=F(id);
+  if(!f){prev.style.display='none';return;}
+  document.getElementById('mpHome').textContent=T(f.homeId)?.name||'?';
+  document.getElementById('mpAway').textContent=T(f.awayId)?.name||'?';
+  prev.style.display='block';
+  const r=results.find(r=>r.fixtureId===id);
+  if(r){
+    document.getElementById('res-home-score').value=r.homeScore;
+    document.getElementById('res-away-score').value=r.awayScore;
+    document.getElementById('res-ht-home').value=r.htHome;
+    document.getElementById('res-ht-away').value=r.htAway;
+    document.getElementById('res-status').value=r.status;
+  }
+}
+function saveResult(){
+  const fid=parseInt(document.getElementById('res-match').value);
+  const hs=parseInt(document.getElementById('res-home-score').value)||0;
+  const as=parseInt(document.getElementById('res-away-score').value)||0;
+  const hth=parseInt(document.getElementById('res-ht-home').value)||0;
+  const hta=parseInt(document.getElementById('res-ht-away').value)||0;
+  const st=document.getElementById('res-status').value;
+  if(!fid){toast('Lütfen maç seçin!','red');return;}
+  const existing=results.findIndex(r=>r.fixtureId===fid);
+  const obj={fixtureId:fid,homeScore:hs,awayScore:as,htHome:hth,htAway:hta,status:st};
+  if(existing>=0) results[existing]=obj; else results.push(obj);
+  const fix=F(fid);if(fix) fix.status=st;
+  renderResults();
+  toast(`Sonuç kaydedildi: ${hs}–${as} (${st})`,'green');
+}
+function renderResults(){
+  document.getElementById('resultsTable').innerHTML=results.map(r=>{
+    const f=F(r.fixtureId),h=f?T(f.homeId):null,a=f?T(f.awayId):null;
+    return `<tr>
+      <td><span class="badge b-sched">${f?'GW'+f.week:'?'}</span></td>
+      <td>${h?teamCell(h):'?'}</td>
+      <td><div class="score-disp">${r.homeScore}–${r.awayScore}</div></td>
+      <td>${a?teamCell(a):'?'}</td>
+      <td style="color:var(--t3);font-size:12px">${r.htHome}–${r.htAway}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${r.status==='Finished'?resultBadge(r.homeScore,r.awayScore):'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── EVENTS ──
+function selectAction(btn,type){
+  selectedAction=type;
+  document.getElementById('ev-type').value=type;
+  document.querySelectorAll('#actionTypePicker button').forEach(b=>{
+    b.style.borderWidth='1px';b.style.borderStyle='solid';
+    b.style.opacity='.6';
+  });
+  btn.style.borderWidth='2px';btn.style.opacity='1';
+}
+function saveEvent(){
+  const mid=parseInt(document.getElementById('ev-match').value);
+  const min=parseInt(document.getElementById('ev-minute').value);
+  const desc=document.getElementById('ev-desc').value.trim();
+  const side=document.getElementById('ev-side').value;
+  if(!mid||!min||!desc){toast('Maç, dakika ve açıklama zorunlu!','red');return;}
+  events.push({id:nextEvId++,matchId:mid,type:selectedAction,minute:min,description:desc,side});
+  renderEvents();
+  document.getElementById('ev-minute').value='';
+  document.getElementById('ev-desc').value='';
+  toast(`${selectedAction} olayı eklendi — ${min}'`,'green');
+}
+function renderEvents(){
+  document.getElementById('eventsTable').innerHTML=events.map(e=>{
+    const f=F(e.matchId),h=f?T(f.homeId):null,a=f?T(f.awayId):null;
+    const matchStr=h&&a?`${h.short} vs ${a.short}`:'?';
+    return `<tr>
+      <td style="font-size:11px;color:var(--t2)">${matchStr}</td>
+      <td><span style="font-family:var(--fd);font-size:15px;font-weight:900;color:var(--t1)">${e.minute}'</span></td>
+      <td>${actionChip(e.type)}</td>
+      <td><span class="badge ${e.side==='HOME'?'b-sched':'b-gold'}">${e.side==='HOME'?'EV':'DEP'}</span></td>
+      <td style="font-size:12px;color:var(--t2)">${e.description}</td>
+      <td><button class="btn btn-red btn-sm" onclick="deleteEvent(${e.id})"><i class="bi bi-trash"></i></button></td>
+    </tr>`;
+  }).join('');
+}
+function deleteEvent(id){
+  events=events.filter(e=>e.id!==id);
+  renderEvents();
+  toast('Olay silindi','red');
+}
+
+// ── STATS ──
+function saveStats(){
+  const mid=document.getElementById('st-match').value;
+  if(!mid){toast('Maç seçin!','red');return;}
+  toast('İstatistikler kaydedildi ✓','green');
+}
+
+// ── STANDINGS CALC ──
+function calcStandings(){
+  const tbl={};
+  TEAMS.forEach(t=>{
+    tbl[t.id]={team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0,form:[]};
+  });
+  results.filter(r=>r.status==='Finished').forEach(r=>{
+    const f=F(r.fixtureId);if(!f) return;
+    const h=tbl[f.homeId],a=tbl[f.awayId];
+    if(!h||!a) return;
+    h.p++;a.p++;
+    h.gf+=r.homeScore;h.ga+=r.awayScore;
+    a.gf+=r.awayScore;a.ga+=r.homeScore;
+    if(r.homeScore>r.awayScore){h.w++;h.pts+=3;h.form.push('W');a.l++;a.form.push('L');}
+    else if(r.awayScore>r.homeScore){a.w++;a.pts+=3;a.form.push('W');h.l++;h.form.push('L');}
+    else{h.d++;h.pts+=1;h.form.push('D');a.d++;a.pts+=1;a.form.push('D');}
+  });
+  const rows=Object.values(tbl).filter(r=>r.p>0).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga));
+  const formColor={'W':'var(--green)','D':'var(--yellow)','L':'var(--live)'};
+  document.getElementById('standingsBody').innerHTML=rows.map((r,i)=>`
+    <tr>
+      <td style="font-family:var(--fd);font-size:16px;font-weight:800;color:${i<1?'var(--gold)':i<4?'var(--green)':i<6?'var(--blue)':'var(--t3)'}">${i+1}</td>
+      <td>${teamCell(r.team)}</td>
+      <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
+      <td>${r.gf}</td><td>${r.ga}</td>
+      <td style="color:${r.gf-r.ga>=0?'var(--green)':'var(--live)'}">${r.gf-r.ga>=0?'+':''}${r.gf-r.ga}</td>
+      <td><div style="display:flex;gap:3px">${r.form.slice(-5).map(f=>`<div style="width:18px;height:18px;border-radius:4px;background:${formColor[f]};display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:9px;font-weight:800;color:var(--bg)">${f}</div>`).join('')}</div></td>
+      <td style="font-family:var(--fd);font-size:20px;font-weight:900;color:var(--gold)">${r.pts}</td>
+    </tr>`).join('');
+}
+
+// ── TOAST ──
+function toast(msg,type='green'){
+  const wrap=document.getElementById('toastWrap');
+  const el=document.createElement('div');
+  el.className=`toast t-${type}`;
+  const icons={green:'bi-check-circle-fill',gold:'bi-info-circle-fill',red:'bi-exclamation-circle-fill'};
+  el.innerHTML=`<i class="bi ${icons[type]||'bi-info-circle-fill'}" style="color:var(--${type==='green'?'green':type==='red'?'live':'gold'})"></i><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>el.classList.add('show'),20);
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300);},3000);
+}
+
+// ── INIT ──
+renderTeams();
+renderFixtureTable();
+renderResults();
+renderEvents();
+populateSelects();
+populateMatchSelect('res-match');
+populateMatchSelect('ev-match');
+populateMatchSelect('st-match');
+buildWeekStrip();
+</script>
+</body>
+</html>

@@ -1,6 +1,9 @@
+
+using PrLeagueX.DtoLayer.TeamDtos;
+
 namespace PrLeagueX.BusinessLayer.Abstract;
 
-public class ITeamService
+public interface ITeamService : IGenericService<ResultTeamDto, CreateTeamDto, UpdateTeamDto>
 {
     
 }

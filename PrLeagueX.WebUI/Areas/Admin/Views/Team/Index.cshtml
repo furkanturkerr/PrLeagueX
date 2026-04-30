@@ -1,0 +1,40 @@
+@model List<PrLeagueX.DtoLayer.TeamDtos.ResultTeamDto>
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+<div class="panel active">
+  <div class="panel-head">
+    <div class="ph-ico gold"><i class="bi bi-shield-fill"></i></div>
+    <div class="ph-right">
+      <a href="~/Admin/Team/CreateTeam" class="btn btn-gold"><i class="bi bi-plus-lg"></i> Yeni Takım</a>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th>#</th><th>Takım</th><th>Kısa Ad</th><th>Şehir</th><th>Stadyum</th><th>İşlem</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+          <tr>
+            <td>@item.TeamId</td>
+            <td>@item.TeamName</td>
+            <td>@item.ShortName</td>
+            <td>@item.City</td>
+            <td>@item.StadiumName</td>
+            <td>
+              <a href="~/Admin/Team/UpdateTeam/@item.TeamId" class="btn btn-sm btn-gold"><i class="bi bi-pencil"></i></a>
+              <a href="~/Admin/Team/DeleteTeam/@item.TeamId" class="btn btn-sm btn-red"><i class="bi bi-trash"></i></a>
+            </td>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/PrLeagueX.WebUI.bundle.scp.css"
     },
     {
+      "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/Admin/admin.html",
+      "PackagePath": "staticwebassets/Admin/admin.html"
+    },
+    {
       "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/Theme/fixtures.html",
       "PackagePath": "staticwebassets/Theme/fixtures.html"
     },

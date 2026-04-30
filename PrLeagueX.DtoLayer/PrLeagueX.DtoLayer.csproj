@@ -11,7 +11,6 @@
       <Folder Include="MatchDetailDtos\" />
       <Folder Include="MatchStatisticDtos\" />
       <Folder Include="StadiumDtos\" />
-      <Folder Include="TeamDtos\" />
     </ItemGroup>
 
 </Project>

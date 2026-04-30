@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "i0NJoi9FOYNnuXx1Bn9ZbKwYH8/M1geEjevWzltVM2U=",
+  "Hash": "OASiDqJ411BX/K+xsnLTt1mxc2aK2Z7U0eYthTg30lw=",
   "Source": "PrLeagueX.WebUI",
   "BasePath": "_content/PrLeagueX.WebUI",
   "Mode": "Default",
@@ -65,6 +65,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/obj/Debug/net8.0/scopedcss/projectbundle/PrLeagueX.WebUI.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/Admin/admin.html",
+      "SourceId": "PrLeagueX.WebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/",
+      "BasePath": "_content/PrLeagueX.WebUI",
+      "RelativePath": "Admin/admin.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Admin/admin.html"
     },
     {
       "Identity": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/default-navbar.css",

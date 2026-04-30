@@ -17,12 +17,14 @@ builder.Services.AddDbContext<PrLeagueXContext>();
 
 builder.Services.AddScoped<IStandingService, StandingManager>();
 builder.Services.AddScoped<ITeamDal, EfTeamDal>();
+builder.Services.AddScoped<ITeamService, TeamManager>();
 builder.Services.AddScoped<IMatchDal, EfMatchDal>();
 builder.Services.AddScoped<IMatchService, MatchManager>();
 builder.Services.AddScoped<IMatchDal, EfMatchDal>();
 builder.Services.AddScoped<ISeasonDal, EfSeasonDal>();
 builder.Services.AddScoped<ISeasonService, SeasonManager>();
 builder.Services.AddScoped<IFixtureService, FixtureManager>();
+builder.Services.AddScoped<IDefaultMatchService, DefaultMatchManager>();
 
 var app = builder.Build();
 
