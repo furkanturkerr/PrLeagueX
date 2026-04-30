@@ -1,6 +1,8 @@
+using PrLeagueX.DtoLayer.LeagueDtos;
+
 namespace PrLeagueX.BusinessLayer.Abstract;
 
-public class ILeagueService
+public interface ILeagueService : IGenericService<ResultLeagueDto, CreateLeagueDto, UpdateLeagueDto>
 {
     
 }

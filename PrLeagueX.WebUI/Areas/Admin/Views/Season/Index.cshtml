@@ -1,0 +1,40 @@
+@model List<PrLeagueX.DtoLayer.SeasonDtos.ResultSeasonDto>
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold"><i class="bi bi-shield-fill"></i></div>
+        <div class="ph-right">
+            <a href="~/Admin/Season/CreateSeason" class="btn btn-gold"><i class="bi bi-plus-lg"></i> Yeni Sezon</a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div style="overflow-x:auto">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>#</th><th>Sezon</th><th>Başlama Tarihi</th><th>Bitiş Tarihi</th><th>Durum</th><th>İşlem</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SeasonId</td>
+                        <td>@item.SeasonName</td>
+                        <td>@item.StartDate.ToString("D")</td>
+                        <td>@item.EndDate.ToString("D")</td>
+                        <td>@item.IsActive</td>
+                        <td>
+                            <a href="~/Admin/Season/UpdateSeason/@item.SeasonId" class="btn btn-sm btn-gold"><i class="bi bi-pencil"></i></a>
+                            <a href="~/Admin/Season/DeleteSeason/@item.SeasonId" class="btn btn-sm btn-red"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

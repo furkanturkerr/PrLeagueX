@@ -30,6 +30,18 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRtaW4vSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/Season/CreateSeason.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2Vhc29uL0NyZWF0ZVNlYXNvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/Season/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2Vhc29uL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/Season/UpdateSeason.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2Vhc29uL1VwZGF0ZVNlYXNvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/Team/CreateTeam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVGVhbS9DcmVhdGVUZWFtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

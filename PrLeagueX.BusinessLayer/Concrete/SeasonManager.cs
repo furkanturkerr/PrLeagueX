@@ -2,6 +2,7 @@ using AutoMapper;
 using PrLeagueX.BusinessLayer.Abstract;
 using PrLeagueX.DataAccessLayer.Abstract;
 using PrLeagueX.DtoLayer.SeasonDtos;
+using PrLeagueX.Entity.Entities;
 
 namespace PrLeagueX.BusinessLayer.Concrete;
 
@@ -22,23 +23,26 @@ public class SeasonManager : ISeasonService
         return _mapper.Map<List<ResultSeasonDto>>(await values);
     }
 
-    public Task<UpdateSeasonDto> TGetByIdAsync(int id)
+    public async Task<UpdateSeasonDto> TGetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var values = _seasonDal.GetByIdAsync(id);
+        return _mapper.Map<UpdateSeasonDto>(await values);
     }
 
-    public Task TInsertAsync(CreateSeasonDto dto)
+    public async Task TInsertAsync(CreateSeasonDto dto)
     {
-        throw new NotImplementedException();
+        var values = _mapper.Map<Season>(dto);
+        await _seasonDal.InsertAsync(values);
     }
 
-    public Task TUpdateAsync(UpdateSeasonDto dto)
+    public async Task TUpdateAsync(UpdateSeasonDto dto)
     {
-        throw new NotImplementedException();
+        var values = _mapper.Map<Season>(dto);
+        await _seasonDal.UpdateAsync(values);
     }
 
-    public Task TDeleteAsync(int id)
+    public async Task TDeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        await _seasonDal.DeleteAsync(id);
     }
 }
