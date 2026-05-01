@@ -42,6 +42,12 @@ public class PrLeagueXContext : DbContext
             .WithOne(x => x.Match)
             .HasForeignKey(x => x.MatchId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<MatchDetail>()
+            .HasOne(x => x.Team)
+            .WithMany(x => x.MatchDetails)
+            .HasForeignKey(x => x.TeamId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
     public DbSet<League> Leagues { get; set; }

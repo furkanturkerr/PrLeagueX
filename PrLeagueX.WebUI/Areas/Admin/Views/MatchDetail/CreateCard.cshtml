@@ -1,0 +1,75 @@
+@model PrLeagueX.DtoLayer.MatchDetailDtos.CreateMatchDetailDto
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold">
+            <i class="bi bi-square-fill"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Kart Ekle</div>
+            <div class="ph-sub">Sarı veya kırmızı kartı doğru takıma ekleyin.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/MatchEvent/Manage/@Model.MatchId" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i> Olaylara Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form asp-area="Admin" asp-controller="MatchDetail" asp-action="CreateCard" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="MatchId" />
+
+            <div style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:22px">
+
+                <div style="display:grid;grid-template-columns:1fr 1fr 220px;gap:16px">
+
+                    <div class="form-group">
+                        <label class="form-label">Takım *</label>
+                        <select asp-for="TeamId" asp-items="ViewBag.Teams" class="form-control form-select">
+                            <option value="">Takım Seçiniz</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Kart Tipi *</label>
+                        <select name="cardType" class="form-control form-select">
+                            <option value="yellow">Sarı Kart</option>
+                            <option value="red">Kırmızı Kart</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dakika *</label>
+                        <input asp-for="Minute" type="number" min="1" max="120" class="form-control" placeholder="ör. 60" />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Açıklama *</label>
+                    <input asp-for="Description" class="form-control" placeholder="ör. Coufal sarı kart gördü" />
+                </div>
+
+                <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px">
+                    <a href="/Admin/MatchEvent/Manage/@Model.MatchId" class="btn btn-ghost">
+                        <i class="bi bi-x-lg"></i> Vazgeç
+                    </a>
+
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-check-lg"></i> Kartı Kaydet
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

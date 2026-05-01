@@ -1,0 +1,108 @@
+@model PrLeagueX.DtoLayer.MatchStatisticDtos.CreateMatchStatisticDto
+
+@{
+Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico purple">
+            <i class="bi bi-bar-chart-fill"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Maç İstatistikleri</div>
+            <div class="ph-sub">Ev sahibi ve deplasman istatistiklerini ayrı ayrı girin.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/MatchEvent/Manage/@ViewBag.MatchId" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i> Olaylara Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form asp-area="Admin" asp-controller="MatchStatistic" asp-action="CreateOrUpdate" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="MatchId" value="@ViewBag.MatchId" />
+
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:20px">
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:12px">
+                    <div></div>
+                    <div style="font-family:var(--fd);font-size:12px;font-weight:800;color:var(--green);letter-spacing:1px">
+                        EV SAHİBİ
+                    </div>
+                    <div style="font-family:var(--fd);font-size:12px;font-weight:800;color:var(--blue);letter-spacing:1px">
+                        DEPLASMAN
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">İlk Yarı Gol</label>
+                    <input asp-for="HomeFirstHalfGoals" type="number" class="form-control" placeholder="Ev sahibi ilk yarı gol" />
+                    <input asp-for="AwayFirstHalfGoals" type="number" class="form-control" placeholder="Deplasman ilk yarı gol" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">İkinci Yarı Gol</label>
+                    <input asp-for="HomeSecondHalfGoals" type="number" class="form-control" placeholder="Ev sahibi ikinci yarı gol" />
+                    <input asp-for="AwaySecondHalfGoals" type="number" class="form-control" placeholder="Deplasman ikinci yarı gol" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">Topa Sahip Olma (%)</label>
+                    <input asp-for="HomeBallPossession" type="number" class="form-control" placeholder="Ev sahibi %" />
+                    <input asp-for="AwayBallPossession" type="number" class="form-control" placeholder="Deplasman %" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">Şut</label>
+                    <input asp-for="HomeShots" type="number" class="form-control" placeholder="Ev sahibi şut" />
+                    <input asp-for="AwayShots" type="number" class="form-control" placeholder="Deplasman şut" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">İsabetli Şut</label>
+                    <input asp-for="HomeShotsOnTarget" type="number" class="form-control" placeholder="Ev sahibi isabetli şut" />
+                    <input asp-for="AwayShotsOnTarget" type="number" class="form-control" placeholder="Deplasman isabetli şut" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">Korner</label>
+                    <input asp-for="HomeCorners" type="number" class="form-control" placeholder="Ev sahibi korner" />
+                    <input asp-for="AwayCorners" type="number" class="form-control" placeholder="Deplasman korner" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">Faul</label>
+                    <input asp-for="HomeFouls" type="number" class="form-control" placeholder="Ev sahibi faul" />
+                    <input asp-for="AwayFouls" type="number" class="form-control" placeholder="Deplasman faul" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center;margin-bottom:14px">
+                    <label class="form-label" style="margin-bottom:0">Sarı Kart</label>
+                    <input asp-for="HomeYellowCards" type="number" class="form-control" placeholder="Ev sahibi sarı kart" />
+                    <input asp-for="AwayYellowCards" type="number" class="form-control" placeholder="Deplasman sarı kart" />
+                </div>
+
+                <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:14px;align-items:center">
+                    <label class="form-label" style="margin-bottom:0">Kırmızı Kart</label>
+                    <input asp-for="HomeRedCards" type="number" class="form-control" placeholder="Ev sahibi kırmızı kart" />
+                    <input asp-for="AwayRedCards" type="number" class="form-control" placeholder="Deplasman kırmızı kart" />
+                </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;gap:10px">
+                <a href="/Admin/MatchEvent/Manage/@ViewBag.MatchId" class="btn btn-ghost">
+                    <i class="bi bi-x-lg"></i> Vazgeç
+                </a>
+
+                <button type="submit" class="btn btn-blue">
+                    <i class="bi bi-check-lg"></i> İstatistikleri Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

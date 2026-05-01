@@ -1015,6 +1015,9 @@
       "PrLeagueX.DtoLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PrLeagueX.Entity": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/PrLeagueX.DtoLayer.dll": {}
         },

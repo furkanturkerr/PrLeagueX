@@ -588,6 +588,9 @@
         }
       },
       "PrLeagueX.DtoLayer/1.0.0": {
+        "dependencies": {
+          "PrLeagueX.Entity": "1.0.0"
+        },
         "runtime": {
           "PrLeagueX.DtoLayer.dll": {
             "assemblyVersion": "1.0.0",

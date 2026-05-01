@@ -1,0 +1,390 @@
+@model PrLeagueX.WebUI.Models.MatchDetailPageViewModel
+
+@{
+    Layout = null;
+
+    var match = Model.Match;
+    var statistic = Model.Statistic;
+
+    var homeScore = match.HomeScore ?? 0;
+    var awayScore = match.AwayScore ?? 0;
+
+    var firstHalfHome = statistic?.HomeFirstHalfGoals ?? 0;
+    var firstHalfAway = statistic?.AwayFirstHalfGoals ?? 0;
+
+    var secondHalfHome = statistic?.HomeSecondHalfGoals ?? 0;
+    var secondHalfAway = statistic?.AwaySecondHalfGoals ?? 0;
+
+    var statusText = match.Status == 0 ? "Maç Oynanmadı"
+        : match.Status == 1 ? "Maç Devam Ediyor"
+        : "Maç Bitti";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@match.HomeTeamName @homeScore-@awayScore @match.AwayTeamName</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="/css/detail.css"/>
+    <link rel="stylesheet" href="/css/default-navbar.css"/>
+</head>
+
+<body>
+
+@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+<section class="hero">
+    <div class="wrap">
+
+        <div class="hero-badges">
+            <span class="hbadge hb-gold">
+                <i class="bi bi-trophy-fill me-1"></i>Premier League · Hafta @match.Week
+            </span>
+
+            <span class="hbadge hb-gray">
+                <i class="bi bi-check2-circle me-1"></i>@statusText
+            </span>
+        </div>
+
+        <div class="hero-grid">
+
+            <div class="h-team">
+                <div class="h-logo">
+                    <img src="@match.HomeTeamLogoUrl" alt="@match.HomeTeamName"/>
+                </div>
+                <div class="h-name">@match.HomeTeamName</div>
+                <div class="h-type">Ev Sahibi</div>
+            </div>
+
+            <div class="h-score-c">
+                <div class="h-sc">@homeScore-@awayScore</div>
+                <div class="h-ht">
+                    <i class="bi bi-hourglass-split me-1"></i>
+                    İY: @firstHalfHome-@firstHalfAway
+                </div>
+                <div class="h-ft">@statusText</div>
+            </div>
+
+            <div class="h-team">
+                <div class="h-logo">
+                    <img src="@match.AwayTeamLogoUrl" alt="@match.AwayTeamName"/>
+                </div>
+                <div class="h-name">@match.AwayTeamName</div>
+                <div class="h-type">Deplasman</div>
+            </div>
+
+        </div>
+
+        <div class="info-strip">
+            <div class="istrip">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>@match.StadiumName</span>
+            </div>
+
+            <div class="istrip">
+                <i class="bi bi-calendar3"></i>
+                <span>@match.MatchDate.ToString("dd.MM.yyyy")</span>
+            </div>
+
+            <div class="istrip">
+                <i class="bi bi-clock"></i>
+                <span>@match.MatchTime</span>
+            </div>
+
+            <div class="istrip">
+                <i class="bi bi-calendar-week"></i>
+                <span>@match.Week. Hafta</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="content">
+<div class="wrap">
+
+<a href="/Default/Index" class="back-btn">
+    <i class="bi bi-arrow-left"></i> Maç Listesine Dön
+</a>
+
+<div class="row g-4">
+
+<div class="col-lg-7">
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-activity me-2" style="color:var(--green)"></i>Maç Olayları
+        </div>
+
+        <div class="tl-wrap">
+            <div class="tl-line"></div>
+
+            @foreach (var item in Model.Details)
+{
+    var action = item.ActionType.ToString();
+
+    var isHome = item.TeamId == match.HomeTeamId;
+
+    var chipSide = isHome ? "home" : "away";
+
+    var chipClass = action == "Goal" ? "goal-ev"
+        : action == "YellowCard" ? "yel-ev"
+        : action == "RedCard" ? "red-ev"
+        : action == "Substitution" ? "sub-ev"
+        : "";
+
+    var iconClass = action == "Goal" ? "ei-goal"
+        : action == "YellowCard" ? "ei-yel"
+        : action == "RedCard" ? "ei-red"
+        : "ei-sub";
+
+    var icon = action == "Goal" ? "bi-circle-fill"
+        : action == "YellowCard" || action == "RedCard" ? "bi-square-fill"
+        : "bi-arrow-left-right";
+
+    var actionText = action == "Goal" ? "Gol"
+        : action == "YellowCard" ? "Sarı Kart"
+        : action == "RedCard" ? "Kırmızı Kart"
+        : action == "Substitution" ? "Oyuncu Değişikliği"
+        : action;
+
+    <div class="tl-ev">
+
+        @if (isHome)
+        {
+            <div class="tl-home">
+                <div class="chip home @chipClass">
+                    <div class="ev-ico @iconClass">
+                        <i class="bi @icon" style="font-size:10px"></i>
+                    </div>
+
+                    <div>
+                        <div class="ev-pl">@item.Description</div>
+                        <div class="ev-dt">@actionText</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tl-min-c">
+                <div class="min-b">@item.Minute'</div>
+            </div>
+
+            <div class="tl-away"></div>
+        }
+        else
+        {
+            <div class="tl-home"></div>
+
+            <div class="tl-min-c">
+                <div class="min-b">@item.Minute'</div>
+            </div>
+
+            <div class="tl-away">
+                <div class="chip away @chipClass">
+                    <div class="ev-ico @iconClass">
+                        <i class="bi @icon" style="font-size:10px"></i>
+                    </div>
+
+                    <div>
+                        <div class="ev-pl">@item.Description</div>
+                        <div class="ev-dt">@actionText</div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+
+        </div>
+    </div>
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-circle-fill me-2" style="color:var(--green);font-size:9px"></i>Goller
+        </div>
+
+        @foreach (var item in Model.Goals)
+        {
+            <div class="gl">
+                <div class="gl-ico">⚽</div>
+                <div class="gl-pl">@item.Description</div>
+                <div class="gl-min">@item.Minute'</div>
+            </div>
+        }
+    </div>
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-square-fill me-2" style="color:var(--yellow);font-size:10px"></i>Kartlar
+        </div>
+
+        @foreach (var item in Model.Cards)
+        {
+            var isRed = item.ActionType.ToString() == "RedCard";
+
+            <div class="gl">
+                <div class="@(isRed ? "rcard" : "ycard")"></div>
+                <div class="gl-pl">@item.Description</div>
+                <div class="gl-min">@item.Minute'</div>
+            </div>
+        }
+    </div>
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-arrow-left-right me-2" style="color:var(--blue)"></i>Oyuncu Değişiklikleri
+        </div>
+
+        @foreach (var item in Model.Substitutions)
+        {
+            <div class="sub-r">
+                <div class="sub-min">@item.Minute'</div>
+                <div class="sub-in">@item.Description</div>
+                <div class="sub-arr">⇄</div>
+                <div class="sub-out">Değişiklik</div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div class="col-lg-5">
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-bar-chart-fill me-2" style="color:var(--blue)"></i>Maç Özeti
+        </div>
+
+        <div class="sc-pills">
+            <div class="sc-pill">
+                <div class="sp-lbl">İlk Yarı</div>
+                <div class="sp-val">@firstHalfHome-@firstHalfAway</div>
+            </div>
+
+            <div class="sc-pill">
+                <div class="sp-lbl">İkinci Yarı</div>
+                <div class="sp-val">@secondHalfHome-@secondHalfAway</div>
+            </div>
+
+            <div class="sc-pill">
+                <div class="sp-lbl">Sonuç</div>
+                <div class="sp-val" style="color:var(--green)">
+                    @homeScore-@awayScore
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-graph-up me-2" style="color:var(--green)"></i>İstatistikler
+        </div>
+
+        @if (statistic != null)
+        {
+            <div class="stat-r">
+                <div class="sv-h">@statistic.HomeBallPossession%</div>
+                <div class="sl">Topa Sahip Olma</div>
+                <div class="sv-a">@statistic.AwayBallPossession%</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h">@statistic.HomeShots</div>
+                <div class="sl">Şut</div>
+                <div class="sv-a">@statistic.AwayShots</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h">@statistic.HomeShotsOnTarget</div>
+                <div class="sl">İsabetli Şut</div>
+                <div class="sv-a">@statistic.AwayShotsOnTarget</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h">@statistic.HomeCorners</div>
+                <div class="sl">Korner</div>
+                <div class="sv-a">@statistic.AwayCorners</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h">@statistic.HomeFouls</div>
+                <div class="sl">Faul</div>
+                <div class="sv-a">@statistic.AwayFouls</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h" style="color:var(--yellow)">@statistic.HomeYellowCards</div>
+                <div class="sl">Sarı Kart</div>
+                <div class="sv-a" style="color:var(--yellow)">@statistic.AwayYellowCards</div>
+            </div>
+
+            <div class="stat-r">
+                <div class="sv-h" style="color:var(--red)">@statistic.HomeRedCards</div>
+                <div class="sl">Kırmızı Kart</div>
+                <div class="sv-a" style="color:var(--red)">@statistic.AwayRedCards</div>
+            </div>
+        }
+    </div>
+
+    <div class="dc">
+        <div class="dc-title">
+            <i class="bi bi-info-circle me-2" style="color:var(--t3)"></i>Maç Bilgileri
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Lig</span>
+            <span class="mi-val" style="color:var(--gold)">Premier League</span>
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Hafta</span>
+            <span class="mi-val">@match.Week. Hafta</span>
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Stadyum</span>
+            <span class="mi-val">@match.StadiumName</span>
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Tarih</span>
+            <span class="mi-val">@match.MatchDate.ToString("dd.MM.yyyy")</span>
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Saat</span>
+            <span class="mi-val">@match.MatchTime</span>
+        </div>
+
+        <div class="mi-row">
+            <span class="mi-key">Durum</span>
+            <span class="mi-val">@statusText</span>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<div class="mt-2">
+    <a href="/Default/Index" class="back-btn">
+        <i class="bi bi-arrow-left"></i> Tüm Maçlara Dön
+    </a>
+</div>
+
+</div>
+</div>
+
+@await Component.InvokeAsync("_DefaultFooterComponentPartial")
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

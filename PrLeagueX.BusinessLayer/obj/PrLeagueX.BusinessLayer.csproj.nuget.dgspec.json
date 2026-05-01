@@ -158,7 +158,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/PrLeagueX.Entity.csproj": {
+                "projectPath": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.Entity/PrLeagueX.Entity.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

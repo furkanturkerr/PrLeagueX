@@ -21,7 +21,7 @@
             </a>
         </div>
     </div>
-
+    
     <div class="panel-body">
         <form asp-area="Admin" asp-controller="Match" asp-action="UpdateMatch" method="post">
             @Html.AntiForgeryToken()
@@ -112,6 +112,10 @@
                     <hr class="dvdr" />
 
                     <div style="display:flex;flex-direction:column;gap:10px">
+                        
+                        <a href="/Admin/MatchEvent/Manage/@Model.MatchId" class="btn btn-green">
+                            <i class="bi bi-activity"></i> Maç Olayı Gir
+                        </a>
 
                         <button type="submit" class="btn btn-blue">
                             <i class="bi bi-check-lg"></i> Güncelle
@@ -120,7 +124,6 @@
                         <a href="/Admin/Match/Index" class="btn btn-ghost">
                             Vazgeç
                         </a>
-
                     </div>
                 </div>
 

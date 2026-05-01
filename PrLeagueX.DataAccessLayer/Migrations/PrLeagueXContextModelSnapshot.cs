@@ -115,9 +115,14 @@ namespace PrLeagueX.DataAccessLayer.Migrations
                     b.Property<int>("Minute")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("MatchDetailId");
 
                     b.HasIndex("MatchId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("MatchDetails");
                 });
@@ -325,7 +330,14 @@ namespace PrLeagueX.DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PrLeagueX.Entity.Entities.Team", "Team")
+                        .WithMany("MatchDetails")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Match");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("PrLeagueX.Entity.Entities.MatchStatistic", b =>
@@ -389,6 +401,8 @@ namespace PrLeagueX.DataAccessLayer.Migrations
                     b.Navigation("AwayMatches");
 
                     b.Navigation("HomeMatches");
+
+                    b.Navigation("MatchDetails");
                 });
 #pragma warning restore 612, 618
         }

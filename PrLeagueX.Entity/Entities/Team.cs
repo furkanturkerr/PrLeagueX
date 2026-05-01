@@ -17,4 +17,5 @@ public class Team
 
     public List<Match> HomeMatches { get; set; }
     public List<Match> AwayMatches { get; set; }
+    public List<MatchDetail> MatchDetails { get; set; }
 }

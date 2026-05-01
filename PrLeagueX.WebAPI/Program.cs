@@ -29,6 +29,10 @@ builder.Services.AddScoped<IStadiumService, StadiumManager>();
 builder.Services.AddScoped<IStadiumDal, EfStadiumDal>();
 builder.Services.AddScoped<ILeagueService, LeagueManager>();
 builder.Services.AddScoped<ILeagueDal, EfLeagueDal>();
+builder.Services.AddScoped<IMatchDetailDal, EfMatchDetailDal>();
+builder.Services.AddScoped<IMatchStatisticDal, EfMatchStatisticDal>();
+builder.Services.AddScoped<IMatchDetailService, MatchDetailManager>();
+builder.Services.AddScoped<IMatchStatisticService, MatchStatisticManager>();
 
 var app = builder.Build();
 

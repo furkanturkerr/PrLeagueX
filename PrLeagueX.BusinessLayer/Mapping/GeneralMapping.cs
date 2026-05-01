@@ -1,6 +1,8 @@
 using AutoMapper;
 using PrLeagueX.DtoLayer.LeagueDtos;
+using PrLeagueX.DtoLayer.MatchDetailDtos;
 using PrLeagueX.DtoLayer.MatchDtos;
+using PrLeagueX.DtoLayer.MatchStatisticDtos;
 using PrLeagueX.DtoLayer.SeasonDtos;
 using PrLeagueX.DtoLayer.StadiumDtos;
 using PrLeagueX.DtoLayer.TeamDtos;
@@ -59,5 +61,13 @@ public class GeneralMapping : Profile
         CreateMap<Stadium, ResultStadiumDto>().ReverseMap();
         CreateMap<Stadium, CreateStadiumDto>().ReverseMap();
         CreateMap<Stadium, UpdateStadiumDto>().ReverseMap();
+        
+        CreateMap<MatchDetail, ResultMatchDetailDto>().ReverseMap();
+        CreateMap<MatchDetail, CreateMatchDetailDto>().ReverseMap();
+        CreateMap<MatchDetail, UpdateMatchDetailDto>().ReverseMap();
+
+        CreateMap<MatchStatistic, ResultMatchStatisticDto>().ReverseMap();
+        CreateMap<MatchStatistic, CreateMatchStatisticDto>().ReverseMap();
+        CreateMap<MatchStatistic, UpdateMatchStatisticDto>().ReverseMap();
     }
 }

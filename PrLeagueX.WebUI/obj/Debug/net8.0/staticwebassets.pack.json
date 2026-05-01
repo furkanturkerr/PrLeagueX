@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets/css/default-navbar.css"
     },
     {
+      "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/detail.css",
+      "PackagePath": "staticwebassets/css/detail.css"
+    },
+    {
       "Id": "/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

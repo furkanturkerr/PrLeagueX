@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="MatchDetailDtos\" />
-      <Folder Include="MatchStatisticDtos\" />
+      <ProjectReference Include="..\PrLeagueX.Entity\PrLeagueX.Entity.csproj" />
     </ItemGroup>
 
 </Project>

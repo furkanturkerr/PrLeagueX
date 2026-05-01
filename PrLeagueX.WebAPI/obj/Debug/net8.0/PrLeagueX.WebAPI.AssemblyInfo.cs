@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrLeagueX.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7eaf835edebd7b1abbb5391d3316557ed9396c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70e17eef66870c43035c7bfe06fc2d9eefcf5cc5")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrLeagueX.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrLeagueX.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
