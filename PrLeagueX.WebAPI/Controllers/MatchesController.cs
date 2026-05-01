@@ -21,5 +21,12 @@ namespace PrLeagueX.WebAPI.Controllers
             var values = await _matchService.TGetListAsync();
             return Ok(values);
         }
+
+        [HttpGet("season/{seasonId:int}/week/{week:int}")]
+        public async Task<IActionResult> GetMatchesBySeasonAndWeekAsync(int seasonId, int week)
+        {
+            var values = await _matchService.TGetMatchesBySeasonAndWeekAsync(seasonId, week);
+            return Ok(values);
+        }
     }
 }

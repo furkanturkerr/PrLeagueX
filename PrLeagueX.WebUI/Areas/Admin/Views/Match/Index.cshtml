@@ -1,0 +1,116 @@
+@model PrLeagueX.WebUI.Areas.Admin.Models.MatchListViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold">
+            <i class="bi bi-calendar-event-fill"></i>
+        </div>
+        <div>
+            <div class="ph-title">Fikstür</div>
+        </div>
+    </div>
+    
+    <form method="get" asp-area="Admin" asp-controller="Match" asp-action="Index">
+        <select name="seasonId" class="form-control form-select">
+            @foreach (var season in Model.Seasons)
+            {
+                <option value="@season.SeasonId" selected="@(season.SeasonId == Model.SelectedSeasonId)">
+                    @season.SeasonName
+                </option>
+            }
+        </select>
+
+        <select name="week" class="form-control form-select">
+            @for (int i = 1; i <= 38; i++)
+            {
+                <option value="@i" selected="@(i == Model.SelectedWeek)">
+                    @i. Hafta
+                </option>
+            }
+        </select>
+
+        <button type="submit" class="btn btn-gold">Filtrele</button>
+    </form>
+
+    <div class="panel-body">
+        <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px">
+            Oluşturulan Fikstürler
+        </div>
+
+        <div style="overflow-x:auto">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>GW</th>
+                        <th>Ev Sahibi</th>
+                        <th>Deplasman</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>Stadyum</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+
+                <tbody id="fixtureTable">
+                    @if (Model.Matches != null && Model.Matches.Any())
+                    {
+                        @foreach (var item in Model.Matches)
+                        {
+                            <tr>
+                                <td>@item.Week</td>
+
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="tl">@item.HomeTeamName.Substring(0,1)</div>
+                                        <div class="t-name">@item.HomeTeamName</div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="tl">@item.AwayTeamName.Substring(0,1)</div>
+                                        <div class="t-name">@item.AwayTeamName</div>
+                                    </div>
+                                </td>
+
+                                <td>@item.MatchDate.ToString("dd.MM.yyyy")</td>
+                                <td>@item.MatchTime</td>
+                                <td>@item.StadiumName</td>
+
+                                <td>
+                                    <span class="badge b-sched">
+                                        @item.Status
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a href="/Admin/Match/UpdateMatch/@item.MatchId" class="btn btn-sm btn-gold">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <a href="/Admin/Match/DeleteMatch/@item.MatchId" class="btn btn-sm btn-red">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" style="text-align:center;color:var(--t3);padding:20px">
+                                Veri bulunamadı
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

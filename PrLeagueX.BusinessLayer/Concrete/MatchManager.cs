@@ -41,4 +41,10 @@ public class MatchManager : IMatchService
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<ResultMatchDto>> TGetMatchesBySeasonAndWeekAsync(int seasonId, int week)
+    {
+        var matches = await _matchDal.GetMatchesBySeasonAndWeekAsync(seasonId, week);
+        return _mapper.Map<List<ResultMatchDto>>(matches);
+    }
 }

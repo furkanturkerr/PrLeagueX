@@ -16,9 +16,9 @@ public class FixtureManager : IFixtureService
         _mapper = mapper;
     }
 
-    public async Task<List<ResultFixtureDto>> TGetFixturesBySeasonAndWeekAsync(int seasonId, int week)
+    public async Task<List<ResultFixtureDto>> TGetMatchesBySeasonAndWeekAsync(int seasonId, int week)
     {
-        var matches = await _matchDal.GetFixturesBySeasonAndWeekAsync(seasonId, week);
+        var matches = await _matchDal.GetMatchesBySeasonAndWeekAsync(seasonId, week);
         return _mapper.Map<List<ResultFixtureDto>>(matches);
     }
 }

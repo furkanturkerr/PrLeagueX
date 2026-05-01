@@ -4,5 +4,5 @@ namespace PrLeagueX.BusinessLayer.Abstract;
 
 public interface IFixtureService
 {
-    Task<List<ResultFixtureDto>> TGetFixturesBySeasonAndWeekAsync(int seasonId, int week);
+    Task<List<ResultFixtureDto>> TGetMatchesBySeasonAndWeekAsync(int seasonId, int week);
 }

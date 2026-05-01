@@ -31,7 +31,11 @@ public class GeneralMapping : Profile
             .ForMember(dest => dest.AwayTeamLogoUrl, opt => opt.MapFrom(src => src.AwayTeam.LogoUrl))
             .ReverseMap();
 
-        CreateMap<Match, ResultMatchDto>().ReverseMap();
+        CreateMap<Match, ResultMatchDto>()
+            .ForMember(x => x.HomeTeamName, opt => opt.MapFrom(src => src.HomeTeam.TeamName))
+            .ForMember(x => x.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.TeamName))
+            .ForMember(x => x.StadiumName, opt => opt.MapFrom(src => src.HomeTeam.Stadium.StadiumName))
+            .ReverseMap();
         
         CreateMap<Match, ResultMatchCardDto>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (int)src.Status))

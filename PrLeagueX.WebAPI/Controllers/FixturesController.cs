@@ -17,7 +17,7 @@ public class FixtureController : ControllerBase
     [HttpGet("season/{seasonId:int}/week/{week:int}")]
     public async Task<IActionResult> GetFixturesBySeasonAndWeek(int seasonId, int week)
     {
-        var values = await _fixtureService.TGetFixturesBySeasonAndWeekAsync(seasonId, week);
+        var values = await _fixtureService.TGetMatchesBySeasonAndWeekAsync(seasonId, week);
         return Ok(values);
     }
 }
