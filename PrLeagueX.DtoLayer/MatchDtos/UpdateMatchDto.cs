@@ -10,9 +10,7 @@ public class UpdateMatchDto
 
     public DateTime MatchDate { get; set; }
     public string MatchTime { get; set; }
-
-    public string StadiumName { get; set; }
-
+    
     public int Week { get; set; }
 
     public int? HomeScore { get; set; }

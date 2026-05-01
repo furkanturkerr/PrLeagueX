@@ -1,0 +1,145 @@
+@model PrLeagueX.DtoLayer.MatchDtos.CreateMatchDto
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold">
+            <i class="bi bi-calendar-plus"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Yeni Maç Ekle</div>
+            <div class="ph-sub">Sezon fikstürüne manuel maç ekleyin.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/Match/Index" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i> Listeye Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form asp-area="Admin" asp-controller="Match" asp-action="CreateMatch" method="post">
+            @Html.AntiForgeryToken()
+
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:22px;align-items:start">
+
+                <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+                        <div style="width:38px;height:38px;border-radius:10px;background:rgba(255,214,0,.12);color:var(--gold);display:flex;align-items:center;justify-content:center">
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </div>
+
+                        <div>
+                            <div style="font-family:var(--fd);font-size:17px;font-weight:800;color:var(--t1)">
+                                Maç Bilgileri
+                            </div>
+                            <div style="font-size:12px;color:var(--t3)">
+                                Takımları, sezonu ve maç zamanını seçin.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Sezon *</label>
+                            <select asp-for="SeasonId" asp-items="ViewBag.Seasons" class="form-control form-select">
+                                <option value="">Sezon Seçiniz</option>
+                            </select>
+                            <span asp-validation-for="SeasonId" style="color:var(--live);font-size:12px"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Hafta No *</label>
+                            <input asp-for="Week" type="number" min="1" class="form-control" placeholder="ör. 15" />
+                            <span asp-validation-for="Week" style="color:var(--live);font-size:12px"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Ev Sahibi Takım *</label>
+                            <select asp-for="HomeTeamId" asp-items="ViewBag.Teams" class="form-control form-select">
+                                <option value="">Ev Sahibi Seçiniz</option>
+                            </select>
+                            <span asp-validation-for="HomeTeamId" style="color:var(--live);font-size:12px"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Deplasman Takım *</label>
+                            <select asp-for="AwayTeamId" asp-items="ViewBag.Teams" class="form-control form-select">
+                                <option value="">Deplasman Seçiniz</option>
+                            </select>
+                            <span asp-validation-for="AwayTeamId" style="color:var(--live);font-size:12px"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Maç Tarihi *</label>
+                            <input asp-for="MatchDate" type="date" class="form-control" />
+                            <span asp-validation-for="MatchDate" style="color:var(--live);font-size:12px"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Maç Saati *</label>
+                            <input asp-for="MatchTime" type="time" class="form-control" />
+                            <span asp-validation-for="MatchTime" style="color:var(--live);font-size:12px"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px">
+                    <div style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--t1);margin-bottom:14px">
+                        Maç Durumu
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Durum</label>
+                        <select asp-for="Status" class="form-control form-select">
+                            <option value="0">Oynanmadı</option>
+                            <option value="1">Devam Ediyor</option>
+                            <option value="2">Bitti</option>
+                        </select>
+                        <span asp-validation-for="Status" style="color:var(--live);font-size:12px"></span>
+                    </div>
+
+                    <hr class="dvdr" />
+
+                    <div style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--t1);margin-bottom:14px">
+                        Skor
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Ev Skoru</label>
+                            <input asp-for="HomeScore" type="number" min="0" class="form-control" placeholder="-" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Dep. Skoru</label>
+                            <input asp-for="AwayScore" type="number" min="0" class="form-control" placeholder="-" />
+                        </div>
+                    </div>
+
+                    <hr class="dvdr" />
+
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <button type="submit" class="btn btn-gold" style="width:100%">
+                            <i class="bi bi-check-lg"></i> Maçı Kaydet
+                        </button>
+
+                        <a href="/Admin/Match/Index" class="btn btn-ghost" style="width:100%;justify-content:center">
+                            <i class="bi bi-x-lg"></i> Vazgeç
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

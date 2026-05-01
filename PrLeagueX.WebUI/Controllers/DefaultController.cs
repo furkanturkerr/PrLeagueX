@@ -33,11 +33,10 @@ public class DefaultController : Controller
         // Aktif sezonu seç
         var selectedSeasonId = seasonId
                                ?? seasons.FirstOrDefault(x => x.IsActive)?.SeasonId
-                               ?? 2;
+                               ?? 6;
 
-        // Güncel hafta: kullanıcı seçtiyse onu al, seçmediyse aktif sezon için 11. hafta
-        // Çünkü seed verilerinde 1-10 bitmiş, 11+ yaklaşan.
-        var selectedWeek = week ?? 11;
+        // Sitede anlık tarih takip edilmiyor manuel veri : 
+        var selectedWeek = week ?? 3;
 
         var matches = new List<ResultMatchCardDto>();
 
@@ -62,6 +61,7 @@ public class DefaultController : Controller
             FinishedCount = matches.Count(x => x.Status == 2),
             UpcomingCount = matches.Count(x => x.Status == 0),
 
+            //Listedeki ilk maçı alır
             FeaturedMatch = matches.FirstOrDefault()
         };
 

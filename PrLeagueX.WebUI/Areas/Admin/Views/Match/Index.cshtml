@@ -14,27 +14,70 @@
         </div>
     </div>
     
-    <form method="get" asp-area="Admin" asp-controller="Match" asp-action="Index">
-        <select name="seasonId" class="form-control form-select">
-            @foreach (var season in Model.Seasons)
-            {
-                <option value="@season.SeasonId" selected="@(season.SeasonId == Model.SelectedSeasonId)">
-                    @season.SeasonName
-                </option>
-            }
-        </select>
+    <form method="get" asp-area="Admin" asp-controller="Match" asp-action="Index"
+      style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:22px">
 
-        <select name="week" class="form-control form-select">
-            @for (int i = 1; i <= 38; i++)
-            {
-                <option value="@i" selected="@(i == Model.SelectedWeek)">
-                    @i. Hafta
-                </option>
-            }
-        </select>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px">
 
-        <button type="submit" class="btn btn-gold">Filtrele</button>
-    </form>
+        <!-- SOL -->
+        <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,214,0,.12);color:var(--gold);display:flex;align-items:center;justify-content:center">
+                <i class="bi bi-funnel-fill"></i>
+            </div>
+            <div>
+                <div style="font-family:var(--fd);font-size:16px;font-weight:800;color:var(--t1)">
+                    Fikstür Filtrele
+                </div>
+                <div style="font-size:12px;color:var(--t3)">
+                    Sezon ve hafta seçerek fikstürü görüntüleyin.
+                </div>
+            </div>
+        </div>
+
+        <!-- SAĞ -->
+        <div style="display:flex;gap:10px">
+
+            <!-- YENİ MAÇ -->
+            <a href="/Admin/Match/CreateMatch" class="btn btn-blue">
+                <i class="bi bi-plus-lg"></i> Yeni Maç
+            </a>
+
+            <!-- FİLTRE -->
+            <button type="submit" class="btn btn-gold">
+                <i class="bi bi-search"></i> Filtrele
+            </button>
+
+        </div>
+    </div>
+
+    <!-- SELECTLER -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Sezon</label>
+            <select name="seasonId" class="form-control form-select">
+                @foreach (var season in Model.Seasons)
+                {
+                    <option value="@season.SeasonId" selected="@(season.SeasonId == Model.SelectedSeasonId)">
+                        @season.SeasonName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Hafta</label>
+            <select name="week" class="form-control form-select">
+                @for (int i = 1; i <= 38; i++)
+                {
+                    <option value="@i" selected="@(i == Model.SelectedWeek)">
+                        @i. Hafta
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+
+</form>
 
     <div class="panel-body">
         <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px">
@@ -84,7 +127,18 @@
 
                                 <td>
                                     <span class="badge b-sched">
-                                        @item.Status
+                                        @if (item.Status == 0)
+                                        {
+                                            <text>Maç oynanmadı</text>
+                                        }
+                                        else if (item.Status == 1)
+                                        {
+                                            <text>Maç devam ediyor</text>
+                                        }
+                                        else if (item.Status == 2)
+                                        {
+                                            <text>Maç bitti</text>
+                                        }
                                     </span>
                                 </td>
 

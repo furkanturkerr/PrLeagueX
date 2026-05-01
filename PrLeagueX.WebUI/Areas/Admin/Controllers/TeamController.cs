@@ -103,7 +103,7 @@ public class TeamController : Controller
     public async Task<IActionResult> DeleteTeam(int id)
     {
         var client = _httpClientFactory.CreateClient();
-        await client.DeleteAsync("http://localhost:5164/api/Teams/DeleteTeam?id=" + id);
+        await client.DeleteAsync("http://localhost:5164/api/Teams?id="+ id);
         return RedirectToAction("Index");
     }
 }

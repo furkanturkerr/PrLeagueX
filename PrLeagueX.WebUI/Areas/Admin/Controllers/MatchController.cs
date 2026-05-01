@@ -1,8 +1,10 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PrLeagueX.DtoLayer.MatchDtos;
 using PrLeagueX.DtoLayer.SeasonDtos;
+using PrLeagueX.DtoLayer.TeamDtos;
 using PrLeagueX.WebUI.Areas.Admin.Models;
 
 namespace PrLeagueX.WebUI.Areas.Admin.Controllers;
@@ -54,5 +56,127 @@ public class MatchController : Controller
         };
         
         return View(model);
+    }
+
+    public async Task<IActionResult> CreateMatch()
+    {
+        var client = _httpClientFactory.CreateClient();
+        
+        var teamresponse = await client.GetAsync("http://localhost:5164/api/Teams");
+        if (teamresponse.IsSuccessStatusCode)
+        {
+            var teamjsonData = await teamresponse.Content.ReadAsStringAsync();
+            var team = JsonConvert.DeserializeObject<List<ResultTeamDto>>(teamjsonData);
+            ViewBag.Teams = new SelectList(team, "TeamId", "TeamName");
+        }
+        
+        var seasonresponse = await client.GetAsync("http://localhost:5164/api/Season");
+        if (seasonresponse.IsSuccessStatusCode)
+        {
+            var seasonjsonData = await seasonresponse.Content.ReadAsStringAsync();
+            var season = JsonConvert.DeserializeObject<List<ResultSeasonDto>>(seasonjsonData);
+            ViewBag.Seasons = new SelectList(season, "SeasonId", "SeasonName");
+        }
+        
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateMatch(CreateMatchDto dto)
+    {
+        var client = _httpClientFactory.CreateClient();
+        var jsonData = JsonConvert.SerializeObject(dto);
+        StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+        var response = await client.PostAsync("http://localhost:5164/api/Match", stringContent);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            var teamresponse = await client.GetAsync("http://localhost:5164/api/Teams");
+            if (teamresponse.IsSuccessStatusCode)
+            {
+                var teamjsonData = await teamresponse.Content.ReadAsStringAsync();
+                var team = JsonConvert.DeserializeObject<List<ResultTeamDto>>(teamjsonData);
+                ViewBag.Teams = new SelectList(team, "TeamId", "TeamName");
+            }
+        
+            var seasonresponse = await client.GetAsync("http://localhost:5164/api/Season");
+            if (seasonresponse.IsSuccessStatusCode)
+            {
+                var seasonjsonData = await seasonresponse.Content.ReadAsStringAsync();
+                var season = JsonConvert.DeserializeObject<List<ResultSeasonDto>>(seasonjsonData);
+                ViewBag.Seasons = new SelectList(season, "SeasonId", "SeasonName");
+            }
+            
+            return View();
+        }
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> DeleteMatch(int id)
+    {
+        var client = _httpClientFactory.CreateClient();
+        await client.DeleteAsync("http://localhost:5164/api/Match?id=" + id);
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> UpdateMatch(int id)
+    {
+        var client = _httpClientFactory.CreateClient();
+        var response = await client.GetAsync("http://localhost:5164/api/Match/GetMatch?id=" + id);
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<UpdateMatchDto>(jsonData);
+            
+            var teamresponse = await client.GetAsync("http://localhost:5164/api/Teams");
+            if (teamresponse.IsSuccessStatusCode)
+            {
+                var teamjsonData = await teamresponse.Content.ReadAsStringAsync();
+                var team = JsonConvert.DeserializeObject<List<ResultTeamDto>>(teamjsonData);
+                ViewBag.Teams = new SelectList(team, "TeamId", "TeamName");
+            }
+        
+            var seasonresponse = await client.GetAsync("http://localhost:5164/api/Season");
+            if (seasonresponse.IsSuccessStatusCode)
+            {
+                var seasonjsonData = await seasonresponse.Content.ReadAsStringAsync();
+                var season = JsonConvert.DeserializeObject<List<ResultSeasonDto>>(seasonjsonData);
+                ViewBag.Seasons = new SelectList(season, "SeasonId", "SeasonName");
+            }
+            
+            return View(values);
+        }
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateMatch(UpdateMatchDto dto)
+    {
+        var client = _httpClientFactory.CreateClient();
+        var jsonData = JsonConvert.SerializeObject(dto);
+        StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+        var response = await client.PutAsync("http://localhost:5164/api/Match", stringContent);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var teamresponse = await client.GetAsync("http://localhost:5164/api/Teams");
+            if (teamresponse.IsSuccessStatusCode)
+            {
+                var teamjsonData = await teamresponse.Content.ReadAsStringAsync();
+                var team = JsonConvert.DeserializeObject<List<ResultTeamDto>>(teamjsonData);
+                ViewBag.Teams = new SelectList(team, "TeamId", "TeamName");
+            }
+        
+            var seasonresponse = await client.GetAsync("http://localhost:5164/api/Season");
+            if (seasonresponse.IsSuccessStatusCode)
+            {
+                var seasonjsonData = await seasonresponse.Content.ReadAsStringAsync();
+                var season = JsonConvert.DeserializeObject<List<ResultSeasonDto>>(seasonjsonData);
+                ViewBag.Seasons = new SelectList(season, "SeasonId", "SeasonName");
+            }
+            
+            return View();
+        }
+        return RedirectToAction("Index");
     }
 }

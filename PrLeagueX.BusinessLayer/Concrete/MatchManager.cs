@@ -2,6 +2,7 @@ using AutoMapper;
 using PrLeagueX.BusinessLayer.Abstract;
 using PrLeagueX.DataAccessLayer.Abstract;
 using PrLeagueX.DtoLayer.MatchDtos;
+using PrLeagueX.Entity.Entities;
 
 namespace PrLeagueX.BusinessLayer.Concrete;
 
@@ -22,24 +23,27 @@ public class MatchManager : IMatchService
         return _mapper.Map<List<ResultMatchDto>>(await values);
     }
 
-    public Task<UpdateMatchDto> TGetByIdAsync(int id)
+    public async Task<UpdateMatchDto> TGetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var values = await _matchDal.GetByIdAsync(id);
+        return _mapper.Map<UpdateMatchDto>(values);
     }
 
-    public Task TInsertAsync(CreateMatchDto dto)
+    public async Task TInsertAsync(CreateMatchDto dto)
     {
-        throw new NotImplementedException();
+        var values = _mapper.Map<Match>(dto);
+        await _matchDal.InsertAsync(values);
     }
 
-    public Task TUpdateAsync(UpdateMatchDto dto)
+    public async Task TUpdateAsync(UpdateMatchDto dto)
     {
-        throw new NotImplementedException();
+        var values = _mapper.Map<Match>(dto);
+        await _matchDal.UpdateAsync(values);
     }
 
-    public Task TDeleteAsync(int id)
+    public async Task TDeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        await _matchDal.DeleteAsync(id);
     }
 
     public async Task<List<ResultMatchDto>> TGetMatchesBySeasonAndWeekAsync(int seasonId, int week)
