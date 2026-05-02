@@ -1,0 +1,391 @@
+@model PrLeagueX.WebUI.Areas.Admin.Models.DashboardViewModel
+
+@{
+Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold">
+            <i class="bi bi-speedometer2"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Maç Dashboard</div>
+            <div class="ph-sub">Fikstür, takımlar, bugünün maçları ve maç olayları yönetim özeti.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/Match/CreateMatch" class="btn btn-blue">
+                <i class="bi bi-plus-lg"></i> Yeni Maç
+            </a>
+
+            <a href="/Admin/Match/Index" class="btn btn-gold">
+                <i class="bi bi-calendar-week"></i> Fikstür
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="match-stats-grid">
+            <div class="match-stat-card">
+                <div class="msc-icon gold"><i class="bi bi-calendar-event"></i></div>
+                <div>
+                    <div class="msc-value">@Model.TotalMatches</div>
+                    <div class="msc-label">Toplam Maç</div>
+                </div>
+            </div>
+
+            <div class="match-stat-card">
+                <div class="msc-icon green"><i class="bi bi-broadcast"></i></div>
+                <div>
+                    <div class="msc-value">@Model.LiveMatches</div>
+                    <div class="msc-label">Canlı Maç</div>
+                </div>
+            </div>
+
+            <div class="match-stat-card">
+                <div class="msc-icon blue"><i class="bi bi-check2-circle"></i></div>
+                <div>
+                    <div class="msc-value">@Model.FinishedMatches</div>
+                    <div class="msc-label">Tamamlanan</div>
+                </div>
+            </div>
+
+            <div class="match-stat-card">
+                <div class="msc-icon red"><i class="bi bi-lightning-charge"></i></div>
+                <div>
+                    <div class="msc-value">@Model.TotalGoals</div>
+                    <div class="msc-label">Toplam Gol</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:22px">
+
+            <!-- TAKIMLAR -->
+            <div class="dash-box">
+                <div class="dash-box-head">
+                    <div>
+                        <div class="dash-title">Takımlar</div>
+                        <div class="dash-sub">Lig sistemindeki kayıtlı takımlar.</div>
+                    </div>
+                    <i class="bi bi-shield-fill"></i>
+                </div>
+
+                <div class="team-dashboard-grid">
+                    @foreach (var team in Model.Teams)
+                    {
+                    <div class="team-dashboard-card">
+                        <div class="team-logo-box">
+                            @if (!string.IsNullOrEmpty(team.LogoUrl))
+                            {
+                            <img src="@team.LogoUrl" alt="@team.TeamName" />
+                            }
+                            else
+                            {
+                            <span>@team.TeamName.Substring(0, 1)</span>
+                            }
+                        </div>
+
+                        <div class="team-info">
+                            <div class="team-name">@team.TeamName</div>
+                            <div class="team-meta">@team.City</div>
+                        </div>
+
+                        <a href="/Admin/Team/UpdateTeam/@team.TeamId" class="btn btn-sm btn-gold">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- BUGÜNÜN MAÇLARI -->
+            <div class="dash-box">
+                <div class="dash-box-head">
+                    <div>
+                        <div class="dash-title">Bugünün Maçları</div>
+                        <div class="dash-sub">Seçili maç günündeki karşılaşmalar.</div>
+                    </div>
+                    <i class="bi bi-calendar-day-fill"></i>
+                </div>
+
+                @foreach (var item in Model.TodayMatches)
+                {
+                var statusText = item.Status == 0 ? "Oynanmadı" :
+                item.Status == 1 ? "Canlı" : "Bitti";
+
+                var statusClass = item.Status == 0 ? "b-sched" :
+                item.Status == 1 ? "b-live" : "b-fin";
+
+                <div class="today-match-card">
+                    <div class="today-match-top">
+                        <span>@item.MatchTime</span>
+                        <span class="badge @statusClass">@statusText</span>
+                    </div>
+
+                    <div class="today-match-main">
+                        <span>@item.HomeTeamName</span>
+                        <strong>@(item.HomeScore ?? 0) - @(item.AwayScore ?? 0)</strong>
+                        <span>@item.AwayTeamName</span>
+                    </div>
+
+                    <div class="today-match-actions">
+                        <a href="/Admin/MatchStatistic/Manage/@item.MatchId" class="btn btn-sm btn-blue">
+                            <i class="bi bi-bar-chart"></i> İstatistik
+                        </a>
+
+                        <a href="/Admin/MatchDetail/Manage/@item.MatchId" class="btn btn-sm btn-gold">
+                            <i class="bi bi-activity"></i> Olay
+                        </a>
+                    </div>
+                </div>
+                }
+            </div>
+
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px">
+            <a href="/Admin/Match/Index" class="quick-match-card">
+                <i class="bi bi-calendar-week"></i>
+                <span>Fikstür Yönet</span>
+            </a>
+
+            <a href="/Admin/MatchDetail/DetailList" class="quick-match-card">
+                <i class="bi bi-activity"></i>
+                <span>Maç Olayları</span>
+            </a>
+
+            <a href="/Admin/Team/Index" class="quick-match-card">
+                <i class="bi bi-shield-fill"></i>
+                <span>Takımlar</span>
+            </a>
+
+            <a href="/Admin/Season/Index" class="quick-match-card">
+                <i class="bi bi-trophy-fill"></i>
+                <span>Sezonlar</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .match-stats-grid{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:16px;
+    }
+
+    .match-stat-card{
+        background:linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+        border:1px solid var(--border);
+        border-radius:var(--r2);
+        padding:18px;
+        display:flex;
+        align-items:center;
+        gap:14px;
+        min-height:105px;
+    }
+
+    .msc-icon{
+        width:50px;
+        height:50px;
+        border-radius:15px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:23px;
+    }
+
+    .msc-icon.gold{background:rgba(255,214,0,.12);color:var(--gold)}
+    .msc-icon.green{background:rgba(0,230,118,.12);color:var(--green)}
+    .msc-icon.blue{background:rgba(41,121,255,.12);color:var(--blue)}
+    .msc-icon.red{background:rgba(255,45,85,.12);color:var(--red)}
+
+    .msc-value{
+        font-family:var(--fd);
+        font-size:32px;
+        line-height:1;
+        font-weight:900;
+        color:var(--t1);
+    }
+
+    .msc-label{
+        margin-top:6px;
+        color:var(--t3);
+        font-size:11px;
+        font-weight:700;
+        letter-spacing:1px;
+        text-transform:uppercase;
+    }
+
+    .dash-box{
+        background:var(--bg2);
+        border:1px solid var(--border);
+        border-radius:var(--r2);
+        padding:20px;
+    }
+
+    .dash-box-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-bottom:18px;
+        color:var(--t3);
+    }
+
+    .dash-title{
+        font-family:var(--fd);
+        font-size:18px;
+        font-weight:900;
+        color:var(--t1);
+    }
+
+    .dash-sub{
+        font-size:12px;
+        color:var(--t3);
+        margin-top:4px;
+    }
+
+    .team-dashboard-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .team-dashboard-card{
+        background:rgba(255,255,255,.025);
+        border:1px solid var(--border);
+        border-radius:15px;
+        padding:13px;
+        display:grid;
+        grid-template-columns:42px 1fr 38px;
+        align-items:center;
+        gap:12px;
+    }
+
+    .team-logo-box{
+        width:42px;
+        height:42px;
+        border-radius:12px;
+        background:rgba(255,214,0,.1);
+        border:1px solid rgba(255,214,0,.18);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        color:var(--gold);
+        font-family:var(--fd);
+        font-size:20px;
+        font-weight:900;
+    }
+
+    .team-logo-box img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        padding:5px;
+    }
+
+    .team-name{
+        font-family:var(--fd);
+        font-size:15px;
+        font-weight:900;
+        color:var(--t1);
+    }
+
+    .team-meta{
+        font-size:12px;
+        color:var(--t3);
+        margin-top:3px;
+    }
+
+    .today-match-card{
+        background:rgba(255,255,255,.025);
+        border:1px solid var(--border);
+        border-radius:15px;
+        padding:15px;
+        margin-bottom:12px;
+    }
+
+    .today-match-top{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        color:var(--t3);
+        font-size:12px;
+        margin-bottom:12px;
+    }
+
+    .today-match-main{
+        display:grid;
+        grid-template-columns:1fr 70px 1fr;
+        align-items:center;
+        gap:10px;
+        color:var(--t1);
+        font-family:var(--fd);
+        font-weight:800;
+    }
+
+    .today-match-main strong{
+        text-align:center;
+        color:var(--gold);
+        font-size:21px;
+    }
+
+    .today-match-main span:last-child{
+        text-align:right;
+    }
+
+    .today-match-actions{
+        display:flex;
+        gap:8px;
+        margin-top:14px;
+        justify-content:flex-end;
+    }
+
+    .quick-match-card{
+        background:var(--bg2);
+        border:1px solid var(--border);
+        border-radius:var(--r2);
+        padding:18px;
+        text-decoration:none;
+        color:var(--t2);
+        display:flex;
+        align-items:center;
+        gap:12px;
+        transition:.2s;
+    }
+
+    .quick-match-card i{
+        color:var(--gold);
+        font-size:22px;
+    }
+
+    .quick-match-card span{
+        font-family:var(--fd);
+        font-weight:800;
+        font-size:15px;
+    }
+
+    .quick-match-card:hover{
+        transform:translateY(-2px);
+        border-color:rgba(255,214,0,.35);
+        color:var(--t1);
+    }
+
+    @@media(max-width:992px){
+        .match-stats-grid,
+        .panel-body > div,
+        .quick-match-card{
+            grid-template-columns:1fr!important;
+        }
+
+        .team-dashboard-grid{
+            grid-template-columns:1fr;
+        }
+    }
+</style>

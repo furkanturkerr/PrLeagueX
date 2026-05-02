@@ -1,3 +1,6 @@
+@{
+    var path = Context.Request.Path.Value?.ToLower() ?? "";
+}
 
 <nav class="nb">
     <div class="nb-inner">
@@ -7,10 +10,18 @@
         </a>
 
         <div class="nav-links d-none d-lg-flex">
-            <a href="/Default" class="nl">Ana Sayfa</a>
-            <a href="/Fixture" class="nl">Fikstür</a>
-            <a href="/Standings" class="nl active">Puan Durumu</a>
-            <a href="/Team/Index" class="nl">Takımlar</a>
+            <a href="/Default/Index" class="nl @(path == "/" || path.StartsWith("/default") ? "active" : "")">
+                Ana Sayfa
+            </a>
+
+            <a href="/Fixture/Index" class="nl @(path.StartsWith("/fixture") ? "active" : "")">
+                Fikstür
+            </a>
+
+            <a href="/Standings/Index" class="nl @(path.StartsWith("/standings") ? "active" : "")">
+                Puan Durumu
+            </a>
+            
         </div>
 
         <div class="nb-icons">
@@ -34,10 +45,18 @@
 
     <div class="mob-menu" id="mobMenu">
         <div class="wrap">
-            <a href="/Default/Index" class="nl d-block">Ana Sayfa</a>
-            <a asp-controller="Fixture" asp-action="Index" class="nl d-block">Fikstür</a>
-            <a asp-controller="Standings" asp-action="Index" class="nl d-block active">Puan Durumu</a>
-            <a href="/Team/Index" class="nl d-block">Takımlar</a>
+            <a href="/Default/Index" class="nl d-block @(path == "/" || path.StartsWith("/default") ? "active" : "")">
+                Ana Sayfa
+            </a>
+
+            <a href="/Fixture/Index" class="nl d-block @(path.StartsWith("/fixture") ? "active" : "")">
+                Fikstür
+            </a>
+
+            <a href="/Standings/Index" class="nl d-block @(path.StartsWith("/standings") ? "active" : "")">
+                Puan Durumu
+            </a>
+            
         </div>
     </div>
 </nav>
