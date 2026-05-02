@@ -36,7 +36,7 @@ MVC katmanı API servislerini **HttpClient** ile consume ederek modern ve loosel
 ### Backend
 
 • C#  
-• ASP.NET Core 8  
+• ASP.NET Core 10
 • ASP.NET Core MVC  
 • ASP.NET Core Web API  
 • Entity Framework Core  
