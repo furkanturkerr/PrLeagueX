@@ -288,49 +288,90 @@
         </div>
 
         @if (statistic != null)
-        {
-            <div class="stat-r">
-                <div class="sv-h">@statistic.HomeBallPossession%</div>
-                <div class="sl">Topa Sahip Olma</div>
-                <div class="sv-a">@statistic.AwayBallPossession%</div>
-            </div>
+{
+    var homePossessionWidth = statistic.HomeBallPossession;
+    var awayPossessionWidth = statistic.AwayBallPossession;
 
-            <div class="stat-r">
-                <div class="sv-h">@statistic.HomeShots</div>
-                <div class="sl">Şut</div>
-                <div class="sv-a">@statistic.AwayShots</div>
-            </div>
+    var maxShots = Math.Max(statistic.HomeShots, statistic.AwayShots);
+    var homeShotsWidth = maxShots == 0 ? 50 : statistic.HomeShots * 100 / maxShots;
+    var awayShotsWidth = maxShots == 0 ? 50 : statistic.AwayShots * 100 / maxShots;
 
-            <div class="stat-r">
-                <div class="sv-h">@statistic.HomeShotsOnTarget</div>
-                <div class="sl">İsabetli Şut</div>
-                <div class="sv-a">@statistic.AwayShotsOnTarget</div>
-            </div>
+    var maxTarget = Math.Max(statistic.HomeShotsOnTarget, statistic.AwayShotsOnTarget);
+    var homeTargetWidth = maxTarget == 0 ? 50 : statistic.HomeShotsOnTarget * 100 / maxTarget;
+    var awayTargetWidth = maxTarget == 0 ? 50 : statistic.AwayShotsOnTarget * 100 / maxTarget;
 
-            <div class="stat-r">
-                <div class="sv-h">@statistic.HomeCorners</div>
-                <div class="sl">Korner</div>
-                <div class="sv-a">@statistic.AwayCorners</div>
-            </div>
+    var maxCorners = Math.Max(statistic.HomeCorners, statistic.AwayCorners);
+    var homeCornersWidth = maxCorners == 0 ? 50 : statistic.HomeCorners * 100 / maxCorners;
+    var awayCornersWidth = maxCorners == 0 ? 50 : statistic.AwayCorners * 100 / maxCorners;
 
-            <div class="stat-r">
-                <div class="sv-h">@statistic.HomeFouls</div>
-                <div class="sl">Faul</div>
-                <div class="sv-a">@statistic.AwayFouls</div>
-            </div>
+    var maxFouls = Math.Max(statistic.HomeFouls, statistic.AwayFouls);
+    var homeFoulsWidth = maxFouls == 0 ? 50 : statistic.HomeFouls * 100 / maxFouls;
+    var awayFoulsWidth = maxFouls == 0 ? 50 : statistic.AwayFouls * 100 / maxFouls;
 
-            <div class="stat-r">
-                <div class="sv-h" style="color:var(--yellow)">@statistic.HomeYellowCards</div>
-                <div class="sl">Sarı Kart</div>
-                <div class="sv-a" style="color:var(--yellow)">@statistic.AwayYellowCards</div>
-            </div>
+    <div class="stat-modern">
 
-            <div class="stat-r">
-                <div class="sv-h" style="color:var(--red)">@statistic.HomeRedCards</div>
-                <div class="sl">Kırmızı Kart</div>
-                <div class="sv-a" style="color:var(--red)">@statistic.AwayRedCards</div>
+        <div class="stat-box">
+            <div class="stat-head">
+                <span>@statistic.HomeBallPossession%</span>
+                <span>Topa Sahip Olma</span>
+                <span>@statistic.AwayBallPossession%</span>
             </div>
-        }
+            <div class="stat-bar">
+                <div class="home" style="width:@(homePossessionWidth)%"></div>
+                <div class="away" style="width:@(awayPossessionWidth)%"></div>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-head">
+                <span>@statistic.HomeShots</span>
+                <span>Şut</span>
+                <span>@statistic.AwayShots</span>
+            </div>
+            <div class="stat-bar">
+                <div class="home" style="width:@(homeShotsWidth)%"></div>
+                <div class="away" style="width:@(awayShotsWidth)%"></div>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-head">
+                <span>@statistic.HomeShotsOnTarget</span>
+                <span>İsabetli Şut</span>
+                <span>@statistic.AwayShotsOnTarget</span>
+            </div>
+            <div class="stat-bar">
+                <div class="home" style="width:@(homeTargetWidth)%"></div>
+                <div class="away" style="width:@(awayTargetWidth)%"></div>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-head">
+                <span>@statistic.HomeCorners</span>
+                <span>Korner</span>
+                <span>@statistic.AwayCorners</span>
+            </div>
+            <div class="stat-bar">
+                <div class="home" style="width:@(homeCornersWidth)%"></div>
+                <div class="away" style="width:@(awayCornersWidth)%"></div>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-head">
+                <span>@statistic.HomeFouls</span>
+                <span>Faul</span>
+                <span>@statistic.AwayFouls</span>
+            </div>
+            <div class="stat-bar">
+                <div class="home" style="width:@(homeFoulsWidth)%"></div>
+                <div class="away" style="width:@(awayFoulsWidth)%"></div>
+            </div>
+        </div>
+
+    </div>
+}
     </div>
 
     <div class="dc">

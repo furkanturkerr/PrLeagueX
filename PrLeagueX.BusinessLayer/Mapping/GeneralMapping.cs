@@ -49,6 +49,7 @@ public class GeneralMapping : Profile
             .ForMember(dest => dest.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.TeamName))
             .ForMember(dest => dest.AwayTeamShortName, opt => opt.MapFrom(src => src.AwayTeam.ShortName))
             .ForMember(dest => dest.AwayTeamLogoUrl, opt => opt.MapFrom(src => src.AwayTeam.LogoUrl))
+            .ForMember(dest => dest.StadiumName, opt => opt.MapFrom(src => src.HomeTeam.Stadium.StadiumName))
             .ReverseMap();
 
 

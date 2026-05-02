@@ -51,4 +51,10 @@ public class MatchManager : IMatchService
         var matches = await _matchDal.GetMatchesBySeasonAndWeekAsync(seasonId, week);
         return _mapper.Map<List<ResultMatchDto>>(matches);
     }
+
+    public async Task<ResultMatchCardDto> GetMatchWithDetailsByIdAsync(int id)
+    {
+        var value = await _matchDal.GetMatchWithDetailsByIdAsync(id);
+        return _mapper.Map<ResultMatchCardDto>(value);
+    }
 }

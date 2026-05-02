@@ -22,7 +22,7 @@ public class MatchController : Controller
         var client = _httpClientFactory.CreateClient();
 
         var matchJson = await client
-            .GetStringAsync($"http://localhost:5164/api/Match/GetMatch?id={id}");
+            .GetStringAsync($"http://localhost:5164/api/Match/GetMatchWithDetails?id={id}");
 
         var match = JsonConvert.DeserializeObject<ResultMatchCardDto>(matchJson);
 
@@ -31,10 +31,10 @@ public class MatchController : Controller
 
         var details = JsonConvert.DeserializeObject<List<ResultMatchDetailDto>>(detailsJson)
                       ?? new List<ResultMatchDetailDto>();
-
+        
         ResultMatchStatisticDto? statistic = null;
 
-        var statisticResponse = await client.GetAsync($"http://localhost:5164/api/MatchStatistics/{id}");
+        var statisticResponse = await client.GetAsync($"http://localhost:5164/api/MatchStatistics/match/{id}");
 
         if (statisticResponse.IsSuccessStatusCode)
         {

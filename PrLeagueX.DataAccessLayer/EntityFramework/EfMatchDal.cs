@@ -33,4 +33,16 @@ public class EfMatchDal : GenericRepository<Match>, IMatchDal
             .ThenBy(x => x.MatchTime)
             .ToListAsync();
     }
+
+    public async Task<Match> GetMatchWithDetailsByIdAsync(int id)
+    {
+        return await _context.Matches
+            .Include(x => x.HomeTeam)
+            .ThenInclude(x => x.Stadium)
+            .Include(x => x.AwayTeam)
+            .ThenInclude(x => x.Stadium)
+            .Include(x => x.Season)
+            .ThenInclude(x => x.League)
+            .FirstOrDefaultAsync(x => x.MatchId == id);
+    }
 }

@@ -57,5 +57,12 @@ namespace PrLeagueX.WebAPI.Controllers
             var values = await _matchService.TGetByIdAsync(id);
             return Ok(values);
         }
+
+        [HttpGet("GetMatchWithDetails")]
+        public async Task<IActionResult> GetMatchWithDetails(int id)
+        {
+            var values = await _matchService.GetMatchWithDetailsByIdAsync(id);
+            return Ok(values);
+        }
     }
 }

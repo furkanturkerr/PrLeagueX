@@ -6,4 +6,5 @@ public interface IMatchDal : IGenericDal<Match>
 {
     Task<List<Match>> GetFinishedMatchesBySeasonAsync(int seasonId);
     Task<List<Match>> GetMatchesBySeasonAndWeekAsync(int seasonId, int week);
+    Task<Match> GetMatchWithDetailsByIdAsync(int id);
 }
