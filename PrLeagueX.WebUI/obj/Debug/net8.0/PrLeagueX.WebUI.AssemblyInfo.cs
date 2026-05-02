@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrLeagueX.WebUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd291d6e769d58a3392c2adedc9ccc1967e570ca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+235fb0dbe15e28f2606cee47a1762e81baead2b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrLeagueX.WebUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrLeagueX.WebUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

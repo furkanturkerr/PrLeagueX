@@ -342,3 +342,60 @@ a{text-decoration:none;color:inherit}img{display:block}
 .red-box{
     background:var(--red);
 }
+
+.match-hero-fixed{
+    align-items:center;
+    grid-template-columns:1fr 260px 1fr;
+}
+
+.fixed-logo{
+    width:92px;
+    height:92px;
+    margin-bottom:14px;
+}
+
+.fixed-score-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.fixed-score{
+    font-family:var(--fd);
+    font-size:76px;
+    line-height:.9;
+    font-weight:900;
+    letter-spacing:1px;
+    color:var(--t1);
+    text-shadow:0 10px 32px rgba(0,0,0,.35);
+}
+
+.fixed-half{
+    background:rgba(143,163,200,.09);
+    border:1px solid rgba(143,163,200,.16);
+    color:var(--t2);
+    border-radius:999px;
+    padding:7px 13px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.fixed-status{
+    font-family:var(--fd);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    color:var(--t3);
+    text-transform:uppercase;
+}
+
+.h-name{
+    font-size:28px;
+    line-height:1;
+}
+
+.h-type{
+    margin-top:12px;
+}

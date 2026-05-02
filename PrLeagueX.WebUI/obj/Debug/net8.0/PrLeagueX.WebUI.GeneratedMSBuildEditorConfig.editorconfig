@@ -54,12 +54,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWF0Y2hEZXRhaWwvQ3JlYXRlU3Vic3RpdHV0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/MatchDetail/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWF0Y2hEZXRhaWwvTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/MatchEvent/Manage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWF0Y2hFdmVudC9NYW5hZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/MatchStatistic/CreateOrUpdate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWF0Y2hTdGF0aXN0aWMvQ3JlYXRlT3JVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/MatchStatistic/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWF0Y2hTdGF0aXN0aWMvTWFuYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/furkanturker/RiderProjects/PrLeagueX/PrLeagueX.WebUI/Areas/Admin/Views/Season/CreateSeason.cshtml]

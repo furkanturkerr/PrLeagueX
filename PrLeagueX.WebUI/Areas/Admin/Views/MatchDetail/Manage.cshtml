@@ -1,0 +1,120 @@
+@model List<PrLeagueX.DtoLayer.MatchDetailDtos.ResultMatchDetailDto>
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+    var matchId = ViewBag.MatchId;
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico gold">
+            <i class="bi bi-activity"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Maç Olayları</div>
+            <div class="ph-sub">Bu maça ait gol, kart ve oyuncu değişikliği olaylarını yönetin.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/Match/Index" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i> Fikstüre Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px">
+            <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase">
+                Kayıtlı Maç Olayları
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <a href="/Admin/MatchDetail/CreateGoal/@matchId" class="btn btn-green">
+                    <i class="bi bi-dribbble"></i> Gol Ekle
+                </a>
+
+                <a href="/Admin/MatchDetail/CreateCard/@matchId" class="btn btn-gold">
+                    <i class="bi bi-square-fill"></i> Kart Ekle
+                </a>
+
+                <a href="/Admin/MatchDetail/CreateSubstitution/@matchId" class="btn btn-blue">
+                    <i class="bi bi-arrow-left-right"></i> Değişiklik Ekle
+                </a>
+            </div>
+        </div>
+
+        <div style="overflow-x:auto">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dakika</th>
+                    <th>Takım</th>
+                    <th>Olay</th>
+                    <th>Açıklama</th>
+                    <th>İşlem</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model.OrderBy(x => x.Minute))
+                    {
+                        var action = item.ActionType.ToString();
+
+                        var actionText = action == "Goal" ? "Gol"
+                            : action == "YellowCard" ? "Sarı Kart"
+                            : action == "RedCard" ? "Kırmızı Kart"
+                            : action == "Substitution" ? "Oyuncu Değişikliği"
+                            : action;
+
+                        var badgeClass = action == "Goal" ? "b-live"
+                            : action == "YellowCard" ? "b-gold"
+                            : action == "RedCard" ? "b-fin"
+                            : action == "Substitution" ? "b-sched"
+                            : "b-sched";
+
+                        <tr>
+                            <td>@item.MatchDetailId</td>
+
+                            <td>
+                                <span class="badge b-sched">@item.Minute'</span>
+                            </td>
+
+                            <td>
+                                <span class="badge b-gold">Takım #@item.TeamId</span>
+                            </td>
+
+                            <td>
+                                <span class="badge @badgeClass">@actionText</span>
+                            </td>
+
+                            <td>@item.Description</td>
+
+                            <td>
+                                <a href="/Admin/MatchDetail/DeleteDetail?id=@item.MatchDetailId&matchId=@matchId"
+                                   class="btn btn-sm btn-red"
+                                   onclick="return confirm('Bu maç olayını silmek istediğine emin misin?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" style="text-align:center;color:var(--t3);padding:24px">
+                            Bu maça ait olay bulunamadı.
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

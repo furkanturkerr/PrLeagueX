@@ -52,27 +52,29 @@
             </span>
         </div>
 
-        <div class="hero-grid">
+        <div class="hero-grid match-hero-fixed">
 
             <div class="h-team">
-                <div class="h-logo">
+                <div class="h-logo fixed-logo">
                     <img src="@match.HomeTeamLogoUrl" alt="@match.HomeTeamName"/>
                 </div>
                 <div class="h-name">@match.HomeTeamName</div>
                 <div class="h-type">Ev Sahibi</div>
             </div>
 
-            <div class="h-score-c">
-                <div class="h-sc">@homeScore-@awayScore</div>
-                <div class="h-ht">
+            <div class="h-score-c fixed-score-box">
+                <div class="h-sc fixed-score">@homeScore - @awayScore</div>
+
+                <div class="h-ht fixed-half">
                     <i class="bi bi-hourglass-split me-1"></i>
-                    İY: @firstHalfHome-@firstHalfAway
+                    İlk Yarı: @firstHalfHome - @firstHalfAway
                 </div>
-                <div class="h-ft">@statusText</div>
+
+                <div class="h-ft fixed-status">@statusText</div>
             </div>
 
             <div class="h-team">
-                <div class="h-logo">
+                <div class="h-logo fixed-logo">
                     <img src="@match.AwayTeamLogoUrl" alt="@match.AwayTeamName"/>
                 </div>
                 <div class="h-name">@match.AwayTeamName</div>

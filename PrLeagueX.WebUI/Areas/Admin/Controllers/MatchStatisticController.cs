@@ -49,4 +49,23 @@ public class MatchStatisticController : Controller
 
         return RedirectToAction("Manage", "MatchEvent", new { id = dto.MatchId });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Manage(int id)
+    {
+        ViewBag.MatchId = id;
+
+        var client = _httpClientFactory.CreateClient();
+        var response = await client.GetAsync($"http://localhost:5164/api/MatchStatistics/match/{id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var value = JsonConvert.DeserializeObject<ResultMatchStatisticDto>(json);
+
+            return View(value);
+        }
+
+        return View(null);
+    }
 }

@@ -1,0 +1,148 @@
+@model PrLeagueX.DtoLayer.MatchStatisticDtos.ResultMatchStatisticDto?
+
+@{
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+    <style>
+        .stat-card{
+            background:var(--bg2);
+            border:1px solid var(--border);
+            border-radius:var(--r2);
+            padding:18px;
+        }
+
+        .stat-title{
+            font-size:12px;
+            color:var(--t3);
+            margin-bottom:6px;
+            text-transform:uppercase;
+            letter-spacing:1px;
+        }
+
+        .stat-values{
+            display:flex;
+            justify-content:space-between;
+            font-family:var(--fd);
+            font-size:20px;
+            font-weight:800;
+            color:var(--t1);
+        }
+    </style>
+}
+
+<div class="panel active">
+    <div class="panel-head">
+        <div class="ph-ico blue">
+            <i class="bi bi-bar-chart-fill"></i>
+        </div>
+
+        <div>
+            <div class="ph-title">Maç İstatistikleri</div>
+            <div class="ph-sub">Bu maça ait istatistik verilerini görüntüleyin ve yönetin.</div>
+        </div>
+
+        <div class="ph-right">
+            <a href="/Admin/MatchStatistic/CreateOrUpdate/@ViewBag.MatchId" class="btn btn-blue">
+                <i class="bi bi-plus-lg"></i> Ekle / Güncelle
+            </a>
+
+            <a href="/Admin/Match/Index" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        @if (Model != null)
+        {
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+
+                <!-- TOPA SAHİP OLMA -->
+                <div class="stat-card">
+                    <div class="stat-title">Topa Sahip Olma</div>
+                    <div class="stat-values">
+                        <span>@Model.HomeBallPossession%</span>
+                        <span>@Model.AwayBallPossession%</span>
+                    </div>
+                </div>
+
+                <!-- ŞUT -->
+                <div class="stat-card">
+                    <div class="stat-title">Şut</div>
+                    <div class="stat-values">
+                        <span>@Model.HomeShots</span>
+                        <span>@Model.AwayShots</span>
+                    </div>
+                </div>
+
+                <!-- İSABETLİ ŞUT -->
+                <div class="stat-card">
+                    <div class="stat-title">İsabetli Şut</div>
+                    <div class="stat-values">
+                        <span>@Model.HomeShotsOnTarget</span>
+                        <span>@Model.AwayShotsOnTarget</span>
+                    </div>
+                </div>
+
+                <!-- KORNER -->
+                <div class="stat-card">
+                    <div class="stat-title">Korner</div>
+                    <div class="stat-values">
+                        <span>@Model.HomeCorners</span>
+                        <span>@Model.AwayCorners</span>
+                    </div>
+                </div>
+
+                <!-- FAUL -->
+                <div class="stat-card">
+                    <div class="stat-title">Faul</div>
+                    <div class="stat-values">
+                        <span>@Model.HomeFouls</span>
+                        <span>@Model.AwayFouls</span>
+                    </div>
+                </div>
+
+                <!-- SARI KART -->
+                <div class="stat-card">
+                    <div class="stat-title">Sarı Kart</div>
+                    <div class="stat-values">
+                        <span style="color:var(--yellow)">@Model.HomeYellowCards</span>
+                        <span style="color:var(--yellow)">@Model.AwayYellowCards</span>
+                    </div>
+                </div>
+
+                <!-- KIRMIZI KART -->
+                <div class="stat-card">
+                    <div class="stat-title">Kırmızı Kart</div>
+                    <div class="stat-values">
+                        <span style="color:var(--red)">@Model.HomeRedCards</span>
+                        <span style="color:var(--red)">@Model.AwayRedCards</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top:20px;text-align:right">
+                <a href="/Admin/MatchStatistic/Delete/@Model.MatchStatisticId?matchId=@Model.MatchId"
+                   class="btn btn-red"
+                   onclick="return confirm('İstatistikleri silmek istediğine emin misin?')">
+                    <i class="bi bi-trash"></i> Sil
+                </a>
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center;padding:40px;color:var(--t3)">
+                <i class="bi bi-exclamation-circle" style="font-size:28px"></i>
+                <div style="margin-top:10px">Bu maç için istatistik girilmemiş.</div>
+
+                <div style="margin-top:16px">
+                    <a href="/Admin/MatchStatistic/CreateOrUpdate/@ViewBag.MatchId" class="btn btn-blue">
+                        <i class="bi bi-plus-lg"></i> İstatistik Ekle
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

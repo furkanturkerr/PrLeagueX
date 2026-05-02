@@ -95,6 +95,7 @@
                         <th>Saat</th>
                         <th>Stadyum</th>
                         <th>Durum</th>
+                        <th>Maç Olayları</th>
                         <th>İşlem</th>
                     </tr>
                 </thead>
@@ -140,6 +141,18 @@
                                             <text>Maç bitti</text>
                                         }
                                     </span>
+                                </td>
+                                
+                                <td>
+                                    <!-- İSTATİSTİKLER -->
+                                    <a href="/Admin/MatchStatistic/Manage/@item.MatchId" class="btn btn-sm btn-blue">
+                                        <i class="bi bi-bar-chart"></i>
+                                    </a>
+
+                                    <!-- OLAYLAR -->
+                                    <a href="/Admin/MatchDetail/Manage/@item.MatchId" class="btn btn-sm btn-gold">
+                                        <i class="bi bi-activity"></i>
+                                    </a>
                                 </td>
 
                                 <td>
